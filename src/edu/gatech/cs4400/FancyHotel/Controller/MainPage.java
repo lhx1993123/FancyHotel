@@ -1,4 +1,4 @@
-package edu.gatech.cs4400.FancyHotel;
+package edu.gatech.cs4400.FancyHotel.Controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
