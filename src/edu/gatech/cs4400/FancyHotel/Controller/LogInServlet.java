@@ -7,21 +7,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import edu.gatech.cs4400.FancyHotel.Model.User;
+
 /**
  * Servlet implementation class MainPage
  */
-public class MainPage extends HttpServlet {
+public class LogInServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MainPage() {
+    public LogInServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-	/**
+	/**USERNAME
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -33,8 +35,27 @@ public class MainPage extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		logIn(request,response);
+	}
+	
+	private void logIn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String username = request.getParameter(ParameterNames.USERNAME);
+		String password = request.getParameter(ParameterNames.PASSWORD);
+		User curUser = tryLogIn(username, password);
+		if(null != curUser){
+			request.getSession().setAttribute(ParameterNames.USER, curUser);
+			redirect(request.getContextPath()+"/main",response);
+		} else{
+			request.getSession().setAttribute(ParameterNames.ERROR_MESSAGE, "Incorrect password. Try again.");
+			forward("/login",request,response);
+		}
+	}
+	
+	
+	
+	//TODO: Implement tryLogIn. Search the username in database, and compare the password.
+	private User tryLogIn(String username, String password){
+		return User.getUser(username,password);
 	}
 
 }
