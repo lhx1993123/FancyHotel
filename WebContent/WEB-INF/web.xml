@@ -44,6 +44,42 @@
     <servlet-name>registerServlet</servlet-name>
     <url-pattern>/register</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>cancel</servlet-name>
+    <jsp-file>/cancel.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>cancel</servlet-name>
+    <url-pattern>/cancel</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>viewReview</servlet-name>
+    <jsp-file>/viewReview.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>viewReview</servlet-name>
+    <url-pattern>/viewReview</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>getReview</servlet-name>
+    <servlet-class>edu.gatech.cs4400.FancyHotel.Controller.ViewReviewServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>getReview</servlet-name>
+    <url-pattern>/getReview</url-pattern>
+  </servlet-mapping>  
+  
+  
+  <servlet>
+    <servlet-name>giveReview</servlet-name>
+    <jsp-file>/giveReview.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>giveReview</servlet-name>
+    <url-pattern>/giveReview</url-pattern>
+  </servlet-mapping> 
   <mime-mapping>
     <extension>css</extension>
     <mime-type>text/css</mime-type>
