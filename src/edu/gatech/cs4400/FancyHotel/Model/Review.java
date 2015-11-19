@@ -5,32 +5,48 @@ import java.util.List;
 
 public class Review {
 	
-	private String location;
+	public enum LOCATION{ATLANTA, CHARLOTTE, SAVANNAH, ORLANDO, MIAMI};
+	private LOCATION location;
 	private String comment;
-	private String rating;
 	private String username;
-	private int review_no;
+	private RATING rating;
+	private int reviewNo;
 	
-	public Review(String location, String comment, String rating, String username, int review_no) {
+	
+	private enum RATING { 
+        EXCELLENT("Excellent"), GOOD("Good"), BAD("Bad"), VERY_BAD("Very Bad"), NEUTRAL("Neutral"); 
+        private String rating; 
+        private RATING(String rating) { 
+            this.rating = rating; 
+        } 
+        
+        @Override 
+        public String toString(){ 
+            return rating; 
+        } 
+    } 	
+	
+	public Review(LOCATION location, String comment, RATING rating, String username, int reviewNo) {
 		this.location = location;
 		this.comment = comment;
 		this.rating = rating;
 		this.username = username;
-		this.review_no = review_no;
+		this.reviewNo = reviewNo;
 	}
 	
+	//TODO: implement
 	public static List<Review> getReviewsByLocation(String location) {
 		ArrayList<Review> reviews = new ArrayList<>();
-		reviews.add(new Review("Atlanta", "Nice Place", "Excellent", "lhx", 1203)); 
-		reviews.add(new Review("Charlotte", "WTH", "Very Bad", "wenzi", 1111));
+		reviews.add(new Review(LOCATION.ATLANTA, "Nice Place", RATING.EXCELLENT, "lhx", 1203)); 
+		reviews.add(new Review(LOCATION.CHARLOTTE, "WTH", RATING.VERY_BAD, "wenzi", 1111));
 		return reviews;
 	}
 
-	public String getLocation() {
+	public LOCATION getLocation() {
 		return location;
 	}
 
-	public void setLocation(String location) {
+	public void setLocation(LOCATION location) {
 		this.location = location;
 	}
 
@@ -42,11 +58,11 @@ public class Review {
 		this.comment = comment;
 	}
 
-	public String getRating() {
+	public RATING getRating() {
 		return rating;
 	}
 
-	public void setRating(String rating) {
+	public void setRating(RATING rating) {
 		this.rating = rating;
 	}
 
@@ -58,12 +74,12 @@ public class Review {
 		this.username = username;
 	}
 
-	public int getReview_no() {
-		return review_no;
+	public int getReviewNo() {
+		return reviewNo;
 	}
 
-	public void setReview_no(int review_no) {
-		this.review_no = review_no;
+	public void setReviewNo(int reviewNo) {
+		this.reviewNo = reviewNo;
 	}
 
 

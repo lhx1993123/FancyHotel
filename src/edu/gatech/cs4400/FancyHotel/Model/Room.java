@@ -33,7 +33,7 @@ public class Room {
 		return location;
 	}
 	public void setLocation(String location) {
-		location = location;
+		this.location = location;
 	}
 	public Room.CATEGORY getRoomCategory() {
 		return roomCategory;

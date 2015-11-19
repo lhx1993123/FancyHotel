@@ -31,6 +31,8 @@
 				        <tbody>
 				          <tr>
 				            <td>1</td>
+				      		<td><input type="checkbox" value=""></td>
+				            
 				          </tr>
 				          <tr>
 				            <td>2</td>

@@ -4,34 +4,38 @@
 <%@ page import="edu.gatech.cs4400.FancyHotel.Controller.ParameterNames"%>
 <t:template>
     <jsp:body>
-		<h3>Hotel Location </h3><span class="label label-default"></span>
-   		<div class="dropdown">
-		  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-		    Choose a location
-		    <span class="caret"></span>
-		  </button>
-		  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-		    <li><a href="#">Atlanta</a></li>
-		    <li><a href="#">Charlotte</a></li>
-		    <li><a href="#">Savannah</a></li>
-		    <li><a href="#">Orlanda</a></li>
-		    <li><a href="#">Miami</a></li>
-		  </ul>
-		</div>
-		
-		<h3>Rating </h3><span class="label label-default"></span>
-   		<div class="dropdown">
-		  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-		    Choose a location
-		    <span class="caret"></span>
-		  </button>
-		  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-		    <li><a href="#">Excellent</a></li>
-		    <li><a href="#">Good</a></li>
-		    <li><a href="#">Bad</a></li>
-		    <li><a href="#">Very Bad</a></li>
-		    <li><a href="#">Neutral</a></li>
-		  </ul>
-		</div>		
+       	<div class="panel panel-info">
+    		<div class="panel-heading">
+    			<h2>Give Review </h2>
+    		</div>
+	   		<div class="panel-body">
+					<form action="generateReview" method="POST">
+						<h3>Hotel Location: </h3><span class="label label-default"></span>
+							<input list="locations" name="location">
+							  <datalist id="locations">
+							    <option value="Atlanta">
+							    <option value="Charlotte">
+							    <option value="Savannah">
+							    <option value="Orlando">
+							    <option value="Miami">
+							  </datalist> <br>
+						
+						<h3>Rating: </h3><span class="label label-default"></span>
+							<input list="ratings" name="rating">
+							  <datalist id="ratings">
+							    <option value="Excellent">
+							    <option value="Good">
+							    <option value="Bad">
+							    <option value="Very Bad">
+							    <option value="Neutral">
+							  </datalist> <br>						
+						
+						<h3>Leave a comment: </h3><span class="label label-default"></span>
+						<input type="text" class="form-control" name="comment" placeholder="comment" aria-describedby="basic-addon2"><br><br>
+						
+						<button class="btn btn-default pull-right" type="submit">Submit</button><br>
+					</form>
+	   		</div>
+    	</div>				
     </jsp:body>
 </t:template>

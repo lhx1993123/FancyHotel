@@ -10,20 +10,22 @@
     			<h2>View Review </h2>
     		</div>
 	   		<div class="panel-body">
+	   		<form action="getReview" method="GET">
 				<h3>Hotel Location: </h3><span class="label label-default"></span>
-					<input list="ratings" name="rating">
-					  <datalist id="ratings">
-					    <option value="Excellent">
-					    <option value="Good">
-					    <option value="Bad">
-					    <option value="Very Bad">
-					    <option value="Neutral">
+					<input list="locations" name="location">
+					  <datalist id="locations">
+					    <option value="Atlanta">
+					    <option value="Charlotte">
+					    <option value="Savannah">
+					    <option value="Orlando">
+					    <option value="Miami">
 					  </datalist>
 				<br>
-				<a href="<c:url value="/newUser"/>" role="button" class="btn btn-default pull-right" >Check Reviews</a><br><br>
+				<button class="btn btn-default pull-right" type="submit">Check Reviews</button><br><br>
 				<hr>
+			</form>
 				
-				<c:if test="${not empty errorMessage}">
+				<c:if test="${not empty reviews}">
 	    			<table class="table">
 				   	<thead>
 					    <tr>
@@ -32,14 +34,12 @@
 					    </tr>
 					</thead>
 				    <tbody>
-					    <tr>
-					    <td>Excellent</td>
-					    <td>Very Bad</td>
-					    </tr>
-					    <tr>
-					    <td>Awesome</td>
-					    <td>WTH</td>
-					    </tr>
+			          <c:forEach var="curReview" items="${reviews}">
+			          	<tr>
+			            <td><c:out value="${curReview.rating}"></c:out></td>
+			            <td><c:out value="${curReview.comment}"></c:out></td>
+			          	</tr>
+			          </c:forEach>
 				    </tbody>
 					</table>
 	   			</c:if>
