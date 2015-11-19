@@ -95,6 +95,24 @@
   </servlet-mapping>
   
   <servlet>
+    <servlet-name>SearchRoomServlet</servlet-name>
+    <servlet-class>edu.gatech.cs4400.FancyHotel.Controller.SearchRoomsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SearchRoomServlet</servlet-name>
+    <url-pattern>/searchRooms</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>chooseRoomsServlet</servlet-name>
+    <jsp-file>/chooseRooms.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>chooseRoomsServlet</servlet-name>
+    <url-pattern>/chooseRooms</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
     <servlet-name>searchConfirmationServlet</servlet-name>
     <servlet-class>edu.gatech.cs4400.FancyHotel.Controller.UpdateConfirmationServlet</servlet-class>
   </servlet>
