@@ -1,13 +1,15 @@
 package edu.gatech.cs4400.FancyHotel.Model;
 
 public class User {
-	private String username;
+	private String username = "Elice";
 	private String password;
+	private String userType = "user";
 	
 	
 	//TODO: return a user given the username.
 	public static User getUser(String username, String password){
 		//This is a wrong implementation.
+		
 		return new User(username, password);
 	}
 	
@@ -15,6 +17,7 @@ public class User {
 	public User(String username,String password){
 		this.username = username;
 		this.password = password;
+		this.userType = "user";
 	}
 	
 	public String getUsername(){
@@ -31,5 +34,13 @@ public class User {
 	
 	public void setPassword(String newPassword){
 		this.password = newPassword;
+	}
+	
+	public String getUserType(){
+		return this.userType;
+	}
+	
+	public void setUserType(String userType){
+		this.userType = userType;
 	}
 }

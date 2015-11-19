@@ -6,11 +6,12 @@ import java.util.List;
 public class Review {
 	
 	private String location;
-	private String review;
+	private String comment;
+	private 
 	
-	public Review(String location, String review) {
+	public Review(String location, String comment) {
 		this.location = location;
-		this.review = review;
+		this.comment = comment;
 	}
 	
 	public static List<Review> getReviewsByLocation(String location) {
@@ -27,11 +28,5 @@ public class Review {
 		this.location = location;
 	}
 
-	public String getReview() {
-		return review;
-	}
 
-	public void setReview(String review) {
-		this.review = review;
-	}
 }

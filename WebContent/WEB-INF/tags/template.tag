@@ -7,6 +7,7 @@
     <link rel="icon" href="../../favicon.ico">
 
     <title>Fancy Hotel</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <link href="<c:url value="/resources/bootstrap-3.3.5-dist/css/bootstrap.min.css"/>" type="text/css" rel="stylesheet">
     <link href="<c:url value="/css/index.css"/>" type="text/css" rel="stylesheet">
   </head>

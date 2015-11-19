@@ -20,6 +20,54 @@
     <servlet-name>main</servlet-name>
     <url-pattern>/main</url-pattern>
   </servlet-mapping>
+   <servlet>
+    <servlet-name>confirmation</servlet-name>
+    <jsp-file>/confirmation.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>confirmation</servlet-name>
+    <url-pattern>/confirmation</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>updateOne</servlet-name>
+    <jsp-file>/updateone.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>updateOne</servlet-name>
+    <url-pattern>/updateOne</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>addCard</servlet-name>
+    <jsp-file>/addcard.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>addCard</servlet-name>
+    <url-pattern>/addCard</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>deleteCard</servlet-name>
+    <jsp-file>/deletecard.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>deleteCard</servlet-name>
+    <url-pattern>/deleteCard</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>updateTwo</servlet-name>
+    <jsp-file>/updatetwo.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>updateTwo</servlet-name>
+    <url-pattern>/updateTwo</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>updateThree</servlet-name>
+    <jsp-file>/updatethree.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>updateThree</servlet-name>
+    <url-pattern>/updateThree</url-pattern>
+  </servlet-mapping>
   <servlet>
     <servlet-name>newUser</servlet-name>
     <jsp-file>/register.jsp</jsp-file>
@@ -35,6 +83,24 @@
   <servlet-mapping>
     <servlet-name>loginServlet</servlet-name>
     <url-pattern>/login</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>searchServlet</servlet-name>
+    <jsp-file>/searchRooms.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>searchServlet</servlet-name>
+    <url-pattern>/availability</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>searchConfirmationServlet</servlet-name>
+    <servlet-class>edu.gatech.cs4400.FancyHotel.Controller.UpdateConfirmationServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>searchConfirmationServlet</servlet-name>
+    <url-pattern>/searchConfirmation</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>registerServlet</servlet-name>
