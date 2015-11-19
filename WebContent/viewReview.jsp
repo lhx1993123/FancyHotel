@@ -7,32 +7,46 @@
     
        	<div class="panel panel-info">
     		<div class="panel-heading">
-    			<h2>New User Registration</h2>
+    			<h2>View Review </h2>
     		</div>
 	   		<div class="panel-body">
-				<h3>Hotel Location </h3><span class="label label-default"></span>
-		   		<div class="dropdown">
-				  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-				    Choose a location
-				    <span class="caret"></span>
-				  </button>
-				  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-				    <li><a href="<c:url value='/getReview?location=Atlanta'">Atlanta</a></li>
-				    <li><a href="#">Charlotte</a></li>
-				    <li><a href="#">Savannah</a></li>
-				    <li><a href="#">Orlanda</a></li>
-				    <li><a href="#">Miami</a></li>
-				  </ul>
-				</div>
+				<h3>Hotel Location: </h3><span class="label label-default"></span>
+					<input list="ratings" name="rating">
+					  <datalist id="ratings">
+					    <option value="Excellent">
+					    <option value="Good">
+					    <option value="Bad">
+					    <option value="Very Bad">
+					    <option value="Neutral">
+					  </datalist>
+				<br>
+				<a href="<c:url value="/newUser"/>" role="button" class="btn btn-default pull-right" >Check Reviews</a><br><br>
+				<hr>
 				
-				
-				<a href="<c:url value="/newUser"/>" role="button" class="btn btn-default pull-right" >Check Reviews</a>	   	
+				<c:if test="${not empty errorMessage}">
+	    			<table class="table">
+				   	<thead>
+					    <tr>
+					    <th>Rating</th>
+					    <th>Comment</th>
+					    </tr>
+					</thead>
+				    <tbody>
+					    <tr>
+					    <td>Excellent</td>
+					    <td>Very Bad</td>
+					    </tr>
+					    <tr>
+					    <td>Awesome</td>
+					    <td>WTH</td>
+					    </tr>
+				    </tbody>
+					</table>
+	   			</c:if>
 	   		</div>
 	   		
 	   		
     	</div>
-		
-		<hr>
 		
     </jsp:body>
 </t:template>
