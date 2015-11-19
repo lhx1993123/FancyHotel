@@ -12,7 +12,7 @@
 				<h3><c:out value="Welcome ${user.username},"/></h3>
 				<c:if test="${user.userType=='user'}">
 	    			<div class="btn-group-vertical center-block" role="group">
-					  <a role="button" class="btn btn-default">Make a new reservation</a>
+					  <a href="<c:url value="/availability"/>" role="button" class="btn btn-default">Make a new reservation</a>
 					  <a href="<c:url value="/updateOne"/>" role="button" class="btn btn-default">Update your reservation</a>
 					  <a role="button" class="btn btn-default">Cancel reservation</a>
 					  <a role="button" class="btn btn-default">Provide feedback</a>
