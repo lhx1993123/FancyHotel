@@ -22,30 +22,16 @@
 			              </tr>
 			            </thead>
 			            <tbody>
-			              <tr>
-			                <td>1</td>
-			                <td>Family</td>
-			                <td>4</td>
-			                <td>170</td>
-			                <td>50</td>
-			                <td><input type="checkbox" name="Yes"><BR></td>
-			              </tr>
-			              <tr>
-			                <td>2</td>
-			                <td>Standard</td>
-			                <td>2</td>
-			                <td>100</td>
-			                <td>70</td>
-			                <td><input type="checkbox" name="Yes"><BR></td>
-			              </tr>
-			              <tr>
-			                <td>3</td>
-			                <td>Standard</td>
-			                <td>2</td>
-			                <td>100</td>
-			                <td>70</td>
-			                <td><input type="checkbox" name="Yes"><BR></td>
-			              </tr>
+			               <c:forEach var="curRoom" items="${rooms}">
+			          	<tr>
+			            <td><c:out value="${curRoom.roomNumber}"></c:out></td>
+			            <td><c:out value="${curRoom.roomCategory}"></c:out></td>
+			            <td><c:out value="${curRoom.numberOfPeople}"></c:out></td>
+			            <td><c:out value="${curRoom.cost}"></c:out></td>
+			          	<td><c:out value="${curRoom.costPerExtraBed}"></c:out></td>
+			          	<td><input type="checkbox" name="selected ${curRoom.roomNumber}" value=""></td>
+			          	</tr>
+			          </c:forEach>
 			            </tbody>
 			          </table>
 			        <p>Total Cost Updated:<p>
