@@ -10,6 +10,10 @@ public class Room {
 	private double costPerExtraBed;
 	
 	
+	//TODO: Implement this.
+	public static Room getRoomByRoomNumberAndLocation(String roomNumber, String location){
+		return new Room(roomNumber,location, Room.CATEGORY.FAMILY,4,100,50);
+	}
 	
 	public Room(String roomNumber, String location, Room.CATEGORY category, int numberOfPeople,
 			double cost, double costPerExtraBed){

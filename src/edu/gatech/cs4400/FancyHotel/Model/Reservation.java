@@ -1,14 +1,15 @@
 package edu.gatech.cs4400.FancyHotel.Model;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class Reservation {
 	private int reservationID;
 	private Date start_date;
 	private Date end_date;
-	private int total_cost;
 	private String username;
 	private int review_no;
 	
@@ -18,14 +19,19 @@ public class Reservation {
 		this.end_date = end_date;
 	}
 	
-	private List<ReserveRelationship> reserveRelationships;
+	private List<ReserveRelationship> reserveRelationships = new ArrayList<>();
 	
+	
+	//TODO: Query db and find the biggest reservation ID.
+	public static int getLargestReservationID(){
+		Random r = new Random();
+		return r.nextInt(10000000);
+	}
 	
 	public static Reservation getReservationByID(String ID){
-		Reservation res = new Reservation(10245, new Date(), new Date());
-		ReserveRelationship rr1 = new ReserveRelationship();
-		rr1.setReservation(res);
-		rr1.setRoom(new Room("1","Atlanta",Room.CATEGORY.FAMILY,3,100.0,50.0));
+		Reservation res = new Reservation(10245, null, null);
+		ReserveRelationship rr1 =
+				new ReserveRelationship(new Room("1","Atlanta",Room.CATEGORY.FAMILY,3,100.0,50.0),false,res);
 		ArrayList<ReserveRelationship> rrs = new ArrayList<ReserveRelationship>();
 		rrs.add(rr1);
 		res.setReserveRelationships(rrs);
@@ -63,14 +69,22 @@ public class Reservation {
 	}
 
 
-	public int getTotal_cost() {
-		return total_cost;
+	public double getTotal_cost() {
+		double costPerDay = 0;
+		for(ReserveRelationship r : this.reserveRelationships){
+			Room tempRoom = r.getRoom();
+			costPerDay += tempRoom.getCost();
+			if(r.isHasExtraBed()){
+				costPerDay += tempRoom.getCostPerExtraBed();
+			}
+		}
+		return getDurationInDays()*costPerDay;
+	}
+	
+	private int getDurationInDays(){
+		return (int) TimeUnit.MILLISECONDS.toDays((this.end_date.getTime() - this.start_date.getTime()));
 	}
 
-
-	public void setTotal_cost(int total_cost) {
-		this.total_cost = total_cost;
-	}
 
 
 	public String getUsername() {

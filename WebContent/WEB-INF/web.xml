@@ -132,6 +132,18 @@
   </servlet-mapping>
   
   <servlet>
+    <servlet-name>selectRoomsServlet</servlet-name>
+    <servlet-class>edu.gatech.cs4400.FancyHotel.Controller.SelectRoomsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>selectRoomsServlet</servlet-name>
+    <url-pattern>/selectRooms</url-pattern>
+  </servlet-mapping>
+  
+  
+
+  
+  <servlet>
     <servlet-name>searchConfirmationServlet</servlet-name>
     <servlet-class>edu.gatech.cs4400.FancyHotel.Controller.UpdateConfirmationServlet</servlet-class>
   </servlet>

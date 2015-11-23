@@ -4,6 +4,13 @@ public class ReserveRelationship {
 	private Room room;
 	private boolean hasExtraBed;
 	private Reservation reservation;
+	
+	public ReserveRelationship(Room room, boolean hasExtraBed, Reservation reservation){
+		this.room = room;
+		this.hasExtraBed = hasExtraBed;
+		this.reservation = reservation;
+	}
+	
 	public Room getRoom() {
 		return room;
 	}
