@@ -34,7 +34,6 @@ public class SelectRoomsServlet extends BaseServlet {
 			Reservation r = getReservation(request);
 			double cost = r.getTotal_cost();
 			request.setAttribute("cost", String.valueOf(cost));
-			System.out.println(cost);
 			forward("/chooseRooms",request,response);
 		}
 	}
@@ -52,18 +51,20 @@ public class SelectRoomsServlet extends BaseServlet {
 		String[] extraBeds = request.getParameterValues("selectedExtraBeds");
 		String location = (String) request.getSession().getAttribute(ParameterNames.LOCATION);
 		Reservation r = new Reservation(Reservation.getLargestReservationID(),startdate,enddate);
-		for(String room : rooms){
-			Room tempRoom = Room.getRoomByRoomNumberAndLocation(room, location);
-			boolean hasExtra = false;
-			if(extraBeds!=null){
-				for(String extra : extraBeds){
-					if(extra.equals(room)){
-						hasExtra = true;
+		if(rooms!=null){
+			for(String room : rooms){
+				Room tempRoom = Room.getRoomByRoomNumberAndLocation(room, location);
+				boolean hasExtra = false;
+				if(extraBeds!=null){
+					for(String extra : extraBeds){
+						if(extra.equals(room)){
+							hasExtra = true;
+						}
 					}
 				}
+				ReserveRelationship relationship = new ReserveRelationship(tempRoom, hasExtra,r);
+				r.getReserveRelationships().add(relationship);
 			}
-			ReserveRelationship relationship = new ReserveRelationship(tempRoom, hasExtra,r);
-			r.getReserveRelationships().add(relationship);
 		}
 		return r;
 	}
