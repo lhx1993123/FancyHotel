@@ -47,7 +47,7 @@ public class LogInServlet extends BaseServlet {
 			redirect(request.getContextPath()+"/main",response);
 		} else{
 			request.getSession().setAttribute(ParameterNames.ERROR_MESSAGE, "Incorrect password. Try again.");
-			forward("/login",request,response);
+			forward("/login.jsp",request,response);
 		}
 	}
 	
@@ -55,7 +55,7 @@ public class LogInServlet extends BaseServlet {
 	
 	//TODO: Implement tryLogIn. Search the username in database, and compare the password.
 	private User tryLogIn(String username, String password){
-		return User.getUser(username,password);
+		return User.login(username,password);
 	}
 
 }

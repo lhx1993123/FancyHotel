@@ -44,9 +44,10 @@ public class RegisterServlet extends BaseServlet {
 		if(!password.equals(passwordAgain)){
 			throw new Exception("Sorry, the passwords don't match.");
 		}
-		User newUser = createNewUser(username, password);
-		request.getSession().setAttribute(ParameterNames.USER, newUser);
-		return newUser!=null;
+		User.CreateUser(username, password, email);
+		User user  = new User(username, password);
+		request.getSession().setAttribute(ParameterNames.USER, user);
+		return user!=null;
 	}
 	
 	
@@ -62,7 +63,7 @@ public class RegisterServlet extends BaseServlet {
 	
 	//TODO: Implement userExist.
 	private boolean userExist(String username){
-		return false;
+		return User.userExist(username);
 	}
 
 }
