@@ -1,9 +1,16 @@
 package edu.gatech.cs4400.FancyHotel.Model;
 
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 public class Room {
 	
 	public enum LOCATION{ATLANTA, CHARLOTTE, SAVANNAH, ORLANDO, MIAMI};
-	private String roomNumber;
+	private int roomNumber;
 	private LOCATION location;
 	public enum CATEGORY{STANDARD, FAMILY, SUITE};
 	private Room.CATEGORY roomCategory;
@@ -13,11 +20,11 @@ public class Room {
 	
 	
 	//TODO: Implement this.
-	public static Room getRoomByRoomNumberAndLocation(String roomNumber, LOCATION location){
+	public static Room getRoomByRoomNumberAndLocation(int roomNumber, LOCATION location){
 		return new Room(roomNumber,location, Room.CATEGORY.FAMILY,4,100,50);
 	}
 	
-	public Room(String roomNumber, LOCATION location, Room.CATEGORY category, int numberOfPeople,
+	public Room(int roomNumber, LOCATION location, Room.CATEGORY category, int numberOfPeople,
 			double cost, double costPerExtraBed){
 		this.roomNumber = roomNumber;
 		this.location = location;
@@ -28,11 +35,40 @@ public class Room {
 	}
 	
 	
+	public static List<Room> getAvailableRooms(Room.LOCATION location, Date startdate, Date enddate){
+		String sql = String.format("SELECT * FROM ROOM "+
+									"WHERE Location='%s' "+
+									"AND NOT EXISTS ("+
+									"SELECT * FROM "+
+									"RESERVATION NATURAL JOIN RESERVES "+
+									"WHERE ROOM.RoomNo=RoomNo AND ((Startdate >= %s AND Startdate<= %s) "+
+									"OR (Enddate>=%s AND Enddate <= %s)))",
+									location.toString(), startdate.toString(),startdate.toString(), 
+									enddate.toString(),enddate.toString());
+		System.out.println(sql);
+		JSONArray rooms = DatabaseConnector.query(sql);
+		ArrayList<Room> returnRooms = new ArrayList<Room>();
+		try {
+			for(int i=0;i<rooms.length();i++){
+				JSONObject curRoom = rooms.getJSONObject(i);
+				Room newRoom = new Room(curRoom.getInt("RoomNo"),Room.LOCATION.valueOf(curRoom.getString("Location").toUpperCase().trim()),
+						Room.CATEGORY.valueOf(curRoom.getString("RoomCategory").toUpperCase().trim()),
+						curRoom.getInt("NoPeople"),curRoom.getDouble("Cost"),curRoom.getDouble("CostExtraBed"));
+				returnRooms.add(newRoom);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return returnRooms;
+	}
 	
-	public String getRoomNumber() {
+	
+	
+	public int getRoomNumber() {
 		return roomNumber;
 	}
-	public void setRoomNumber(String roomNumer) {
+	public void setRoomNumber(int roomNumer) {
 		this.roomNumber = roomNumer;
 	}
 	public LOCATION getLocation() {

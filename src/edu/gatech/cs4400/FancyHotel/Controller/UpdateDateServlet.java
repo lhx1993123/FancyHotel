@@ -40,9 +40,6 @@ public class UpdateDateServlet extends BaseServlet {
 	//TODO: Implement DB query
 	private List<Room> searchRooms(Room.LOCATION location, String currentstartdate, String currentenddate, String newstartdate, String newenddate){
 		ArrayList<Room> rooms = new ArrayList<Room>();
-		rooms.add(new Room("1",location,Room.CATEGORY.FAMILY,3,100.0,50.0));
-		rooms.add(new Room("2",location,Room.CATEGORY.STANDARD,2,90.0,40.0));
-		rooms.add(new Room("3",location,Room.CATEGORY.SUITE,2,101.0,59.0));
 		return rooms;
 	}
 

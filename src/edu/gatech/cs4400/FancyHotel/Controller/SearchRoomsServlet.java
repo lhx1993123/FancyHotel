@@ -17,7 +17,7 @@ public class SearchRoomsServlet extends BaseServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String location = request.getParameter("location");
+		String location = request.getParameter("location").toUpperCase();
 		Date startdate = Date.valueOf(request.getParameter("startdate"));
 		Date enddate = Date.valueOf(request.getParameter("enddate"));
 		List<Room> rooms = searchRooms(Room.LOCATION.valueOf(location), startdate, enddate);
@@ -36,13 +36,8 @@ public class SearchRoomsServlet extends BaseServlet {
 	}
 	
 	
-	//TODO: Implement DB query
 	private List<Room> searchRooms(Room.LOCATION location, Date startdate, Date enddate){
-		ArrayList<Room> rooms = new ArrayList<Room>();
-		rooms.add(new Room("1",location,Room.CATEGORY.FAMILY,3,100.0,50.0));
-		rooms.add(new Room("2",location,Room.CATEGORY.STANDARD,2,90.0,40.0));
-		rooms.add(new Room("3",location,Room.CATEGORY.SUITE,2,101.0,59.0));
+		List<Room> rooms = Room.getAvailableRooms(location, startdate, enddate);
 		return rooms;
 	}
-	
 }
