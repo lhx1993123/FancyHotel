@@ -41,21 +41,27 @@ public class LogInServlet extends BaseServlet {
 	private void logIn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String username = request.getParameter(ParameterNames.USERNAME);
 		String password = request.getParameter(ParameterNames.PASSWORD);
-		User curUser = tryLogIn(username, password);
+		User curUser = tryLogIn(username, password, false);
 		if(null != curUser){
 			request.getSession().setAttribute(ParameterNames.USER, curUser);
 			redirect(request.getContextPath()+"/main",response);
 		} else{
-			request.getSession().setAttribute(ParameterNames.ERROR_MESSAGE, "Incorrect password. Try again.");
-			forward("/login.jsp",request,response);
+			curUser = tryLogIn(username, password, true);
+			if (null != curUser) {
+				request.getSession().setAttribute(ParameterNames.USER, curUser);
+				redirect(request.getContextPath()+"/main",response);
+			} else {
+				request.getSession().setAttribute(ParameterNames.ERROR_MESSAGE, "Incorrect password. Try again.");
+				forward("/login.jsp",request,response);
+			}
 		}
 	}
 	
 	
 	
 	//TODO: Implement tryLogIn. Search the username in database, and compare the password.
-	private User tryLogIn(String username, String password){
-		return User.login(username,password);
+	private User tryLogIn(String username, String password, boolean isManager){
+		return User.login(username,password, isManager);
 	}
 
 }

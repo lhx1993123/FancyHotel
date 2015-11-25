@@ -53,7 +53,7 @@ public class SelectRoomsServlet extends BaseServlet {
 		Reservation r = new Reservation(Reservation.getLargestReservationID(),startdate,enddate);
 		if(rooms!=null){
 			for(String room : rooms){
-				Room tempRoom = Room.getRoomByRoomNumberAndLocation(room, location);
+				Room tempRoom = Room.getRoomByRoomNumberAndLocation(room, Room.LOCATION.valueOf(location));
 				boolean hasExtra = false;
 				if(extraBeds!=null){
 					for(String extra : extraBeds){

@@ -1,8 +1,10 @@
 package edu.gatech.cs4400.FancyHotel.Model;
 
 public class Room {
+	
+	public enum LOCATION{ATLANTA, CHARLOTTE, SAVANNAH, ORLANDO, MIAMI};
 	private String roomNumber;
-	private String location;
+	private LOCATION location;
 	public enum CATEGORY{STANDARD, FAMILY, SUITE};
 	private Room.CATEGORY roomCategory;
 	private int numberOfPeople;
@@ -11,11 +13,11 @@ public class Room {
 	
 	
 	//TODO: Implement this.
-	public static Room getRoomByRoomNumberAndLocation(String roomNumber, String location){
+	public static Room getRoomByRoomNumberAndLocation(String roomNumber, LOCATION location){
 		return new Room(roomNumber,location, Room.CATEGORY.FAMILY,4,100,50);
 	}
 	
-	public Room(String roomNumber, String location, Room.CATEGORY category, int numberOfPeople,
+	public Room(String roomNumber, LOCATION location, Room.CATEGORY category, int numberOfPeople,
 			double cost, double costPerExtraBed){
 		this.roomNumber = roomNumber;
 		this.location = location;
@@ -33,10 +35,10 @@ public class Room {
 	public void setRoomNumber(String roomNumer) {
 		this.roomNumber = roomNumer;
 	}
-	public String getLocation() {
+	public LOCATION getLocation() {
 		return location;
 	}
-	public void setLocation(String location) {
+	public void setLocation(LOCATION location) {
 		this.location = location;
 	}
 	public Room.CATEGORY getRoomCategory() {

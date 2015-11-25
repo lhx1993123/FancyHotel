@@ -63,7 +63,7 @@ public class RegisterServlet extends BaseServlet {
 	
 	//TODO: Implement userExist.
 	private boolean userExist(String username){
-		return User.userExist(username);
+		return User.userExist(username, false);
 	}
 
 }

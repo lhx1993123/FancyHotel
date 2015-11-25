@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+import edu.gatech.cs4400.FancyHotel.Model.Room.LOCATION;
+
 public class Reservation {
 	private int reservationID;
 	private Date start_date;
@@ -31,7 +33,7 @@ public class Reservation {
 	public static Reservation getReservationByID(String ID){
 		Reservation res = new Reservation(10245, null, null);
 		ReserveRelationship rr1 =
-				new ReserveRelationship(new Room("1","Atlanta",Room.CATEGORY.FAMILY,3,100.0,50.0),false,res);
+				new ReserveRelationship(new Room("1",LOCATION.ATLANTA,Room.CATEGORY.FAMILY,3,100.0,50.0),false,res);
 		ArrayList<ReserveRelationship> rrs = new ArrayList<ReserveRelationship>();
 		rrs.add(rr1);
 		res.setReserveRelationships(rrs);

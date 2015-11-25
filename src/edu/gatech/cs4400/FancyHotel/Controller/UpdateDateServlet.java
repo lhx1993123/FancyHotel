@@ -24,8 +24,8 @@ public class UpdateDateServlet extends BaseServlet {
 		
 		Reservation reservation = (Reservation) request.getSession().getAttribute(ParameterNames.RESERVATION);
 		System.out.print(reservation==null);
-		String location = reservation.getReserveRelationships().get(0).getRoom().getLocation();
-		List<Room> rooms = searchRooms(currentstartdate, currentenddate, newstartdate, newenddate, location);
+		Room.LOCATION location = reservation.getReserveRelationships().get(0).getRoom().getLocation();
+		List<Room> rooms = searchRooms(location, currentstartdate, currentenddate, newstartdate, newenddate);
 		request.setAttribute("rooms", rooms);
 		forward("/updateThree",request,response);
 	}
@@ -38,7 +38,7 @@ public class UpdateDateServlet extends BaseServlet {
 	}
 	
 	//TODO: Implement DB query
-	private List<Room> searchRooms(String location, String currentstartdate, String currentenddate, String newstartdate, String newenddate){
+	private List<Room> searchRooms(Room.LOCATION location, String currentstartdate, String currentenddate, String newstartdate, String newenddate){
 		ArrayList<Room> rooms = new ArrayList<Room>();
 		rooms.add(new Room("1",location,Room.CATEGORY.FAMILY,3,100.0,50.0));
 		rooms.add(new Room("2",location,Room.CATEGORY.STANDARD,2,90.0,40.0));

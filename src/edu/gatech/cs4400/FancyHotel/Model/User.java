@@ -11,10 +11,17 @@ public class User {
 	private String userType = "user";
 	
 	
-	public static boolean userExist(String username){
-		String sql = "SELECT * "
-				+ "FROM CUSTOMER"
-				+ " WHERE CUSTOMER.Username ="+"'"+username+"'";
+	public static boolean userExist(String username, boolean isManager){
+		String sql;
+		if (!isManager) {
+			sql = "SELECT * "
+					+ "FROM CUSTOMER"
+					+ " WHERE CUSTOMER.Username ="+"'"+username+"'";
+		} else {
+			sql = "SELECT * "
+					+ "FROM MANAGEMENT"
+					+ " WHERE MANAGEMENT.Username ="+"'"+username+"'";
+		}
 		JSONArray users = DatabaseConnector.query(sql);
 		try {
 			return users.length()>0;
@@ -24,20 +31,31 @@ public class User {
 		}
 		return false;
 	}
-	
-	//TODO: return a user given the username.
-	public static User login(String username, String password){
-		//This is a wrong implementation.
-		String sql = "SELECT * "
-				+ "FROM CUSTOMER"
-				+ " WHERE CUSTOMER.Username ="+"'"+username+"'";
+		
+	public static User login(String username, String password, boolean isManager){
+		String sql;
+		if (!isManager) {
+			sql = "SELECT * "
+					+ "FROM CUSTOMER"
+					+ " WHERE CUSTOMER.Username ="+"'"+username+"'";
+		} else {
+			sql = "SELECT * "
+					+ "FROM MANAGEMENT"
+					+ " WHERE MANAGEMENT.Username ="+"'"+username+"'";
+		}
 		System.out.println(sql);
 		JSONArray users = DatabaseConnector.query(sql);
 		try {
 			if(users.length()>0){
 				String truePassword = users.getJSONObject(0).getString("Password");
 				if(truePassword.equals(password)){
-					return new User(username, password);
+					if (!isManager) {
+						return new User(username, password);
+					} else {
+						User user = new User(username, password);
+						user.userType = "manager";
+						return user;
+					}
 				}
 			}
 		} catch (Exception e) {
@@ -48,7 +66,7 @@ public class User {
 	}
 	
 	public static void CreateUser(String username, String password, String email){
-		if(!userExist(username)){
+		if(!userExist(username, false)){
 			System.out.println("Creating customer!");
 			String sql = 
 					"INSERT INTO CUSTOMER (Username,Email, Password)"+

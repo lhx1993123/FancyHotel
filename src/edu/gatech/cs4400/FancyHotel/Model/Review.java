@@ -5,15 +5,14 @@ import java.util.List;
 
 public class Review {
 	
-	public enum LOCATION{ATLANTA, CHARLOTTE, SAVANNAH, ORLANDO, MIAMI};
-	private LOCATION location;
+	private Room.LOCATION location;
 	private String comment;
 	private String username;
-	private RATING rating;
+	public RATING rating;
 	private int reviewNo;
 	
 	
-	private enum RATING { 
+	public enum RATING { 
         EXCELLENT("Excellent"), GOOD("Good"), BAD("Bad"), VERY_BAD("Very Bad"), NEUTRAL("Neutral"); 
         private String rating; 
         private RATING(String rating) { 
@@ -26,7 +25,9 @@ public class Review {
         } 
     } 	
 	
-	public Review(LOCATION location, String comment, RATING rating, String username, int reviewNo) {
+	
+	
+	public Review(Room.LOCATION location, String comment, RATING rating, String username, int reviewNo) {
 		this.location = location;
 		this.comment = comment;
 		this.rating = rating;
@@ -37,16 +38,16 @@ public class Review {
 	//TODO: implement
 	public static List<Review> getReviewsByLocation(String location) {
 		ArrayList<Review> reviews = new ArrayList<>();
-		reviews.add(new Review(LOCATION.ATLANTA, "Nice Place", RATING.EXCELLENT, "lhx", 1203)); 
-		reviews.add(new Review(LOCATION.CHARLOTTE, "WTH", RATING.VERY_BAD, "wenzi", 1111));
+		reviews.add(new Review(Room.LOCATION.ATLANTA, "Nice Place", RATING.EXCELLENT, "lhx", 1203)); 
+		reviews.add(new Review(Room.LOCATION.CHARLOTTE, "WTH", RATING.VERY_BAD, "wenzi", 1111));
 		return reviews;
 	}
 
-	public LOCATION getLocation() {
+	public Room.LOCATION getLocation() {
 		return location;
 	}
 
-	public void setLocation(LOCATION location) {
+	public void setLocation(Room.LOCATION location) {
 		this.location = location;
 	}
 
