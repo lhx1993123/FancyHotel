@@ -25,7 +25,7 @@
 				<hr>
 			</form>
 				
-				<c:if test="${not empty returnReviews}">
+				<c:if test="${not empty reviews}">
 	    			<table class="table">
 				   	<thead>
 					    <tr>

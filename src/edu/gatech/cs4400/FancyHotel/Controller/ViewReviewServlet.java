@@ -32,13 +32,13 @@ public class ViewReviewServlet extends BaseServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
 		String location = request.getParameter("location").toUpperCase();
 		List<Review> reviews = getReviews(Review.LOCATION.valueOf(location));
-		if (reviews == null) {
+		if (reviews.isEmpty()) {
 			request.getSession().setAttribute(ParameterNames.ERROR_MESSAGE, "No review currently.");
 		} else {
-			request.getSession().setAttribute(ParameterNames.RATING, location);
+			request.setAttribute(ParameterNames.RATING, location);
+			request.setAttribute("reviews", reviews);
 			forward("/viewReview",request,response);
 		}
 	}
