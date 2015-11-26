@@ -15,8 +15,8 @@
 					  <a href="<c:url value="/availability"/>" role="button" class="btn btn-default">Make a new reservation</a>
 					  <a href="<c:url value="/updateOne"/>" role="button" class="btn btn-default">Update your reservation</a>
 					  <a role="button" class="btn btn-default">Cancel reservation</a>
-					  <a role="button" class="btn btn-default">Provide feedback</a>
-					  <a role="button" class="btn btn-default">View feedback</a>
+					  <a href="<c:url value="/giveReview"/>"role="button" class="btn btn-default">Provide feedback</a>
+					  <a href="<c:url value="/viewReview"/>"role="button" class="btn btn-default">View feedback</a>
 					</div>
 				
 				</c:if>

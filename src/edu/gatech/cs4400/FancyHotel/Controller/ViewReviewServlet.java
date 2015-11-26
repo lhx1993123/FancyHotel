@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.gatech.cs4400.FancyHotel.Model.Review;
+import edu.gatech.cs4400.FancyHotel.Model.Room;
 
 /**
  * Servlet implementation class ViewReviewServlet
@@ -32,12 +33,12 @@ public class ViewReviewServlet extends BaseServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
-		String location = request.getParameter(ParameterNames.LOCATION);
-		List<Review> reviews = getReviewByLocation(location);
+		String location = request.getParameter("location").toUpperCase();
+		List<Review> reviews = getReviews(Review.LOCATION.valueOf(location));
 		if (reviews == null) {
-			request.getSession().setAttribute(ParameterNames.ERROR_MESSAGE, "Incorrect password. Try again.");
+			request.getSession().setAttribute(ParameterNames.ERROR_MESSAGE, "No review currently.");
 		} else {
-			request.setAttribute("reviews", reviews);
+			request.getSession().setAttribute(ParameterNames.RATING, location);
 			forward("/viewReview",request,response);
 		}
 	}
@@ -47,12 +48,12 @@ public class ViewReviewServlet extends BaseServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
 	}
 	
 	
-	private List<Review> getReviewByLocation(String location) {
-		return Review.getReviewsByLocation(location);
+	private List<Review> getReviews(Review.LOCATION location) {
+		List<Review> reviews = Review.getReviewsByLocation(location);
+		return reviews;
 	}
 
 }

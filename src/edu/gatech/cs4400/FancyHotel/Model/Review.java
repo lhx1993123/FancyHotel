@@ -1,11 +1,16 @@
 package edu.gatech.cs4400.FancyHotel.Model;
 
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 public class Review {
 	
-	private Room.LOCATION location;
+	public enum LOCATION{ATLANTA, CHARLOTTE, SAVANNAH, ORLANDO, MIAMI};
+	private Review.LOCATION location;
 	private String comment;
 	private String username;
 	public RATING rating;
@@ -27,27 +32,39 @@ public class Review {
 	
 	
 	
-	public Review(Room.LOCATION location, String comment, RATING rating, String username, int reviewNo) {
-		this.location = location;
+	public Review(RATING rating, String comment) {
 		this.comment = comment;
 		this.rating = rating;
-		this.username = username;
-		this.reviewNo = reviewNo;
 	}
 	
 	//TODO: implement
-	public static List<Review> getReviewsByLocation(String location) {
-		ArrayList<Review> reviews = new ArrayList<>();
-		reviews.add(new Review(Room.LOCATION.ATLANTA, "Nice Place", RATING.EXCELLENT, "lhx", 1203)); 
-		reviews.add(new Review(Room.LOCATION.CHARLOTTE, "WTH", RATING.VERY_BAD, "wenzi", 1111));
-		return reviews;
+	public static List<Review> getReviewsByLocation(Review.LOCATION location) {
+		String sql = String.format("SELECT Rating, Comment FROM HOTEL_REVIEW " +
+									"WHERE Location='%s' ",
+									location.toString());
+		System.out.println(sql);
+		JSONArray reviews = DatabaseConnector.query(sql);
+		ArrayList<Review> returnReviews = new ArrayList<Review>();
+		try {
+			for(int i=0;i<reviews.length();i++){
+				JSONObject curReview = reviews.getJSONObject(i);
+				Review newReview = new Review(Review.RATING.valueOf(curReview.getString("Rating").toUpperCase().trim()),
+						curReview.getString("Comment"));
+				returnReviews.add(newReview);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return returnReviews;
 	}
 
-	public Room.LOCATION getLocation() {
+	
+	public LOCATION getLocation() {
 		return location;
 	}
 
-	public void setLocation(Room.LOCATION location) {
+	public void setLocation(LOCATION location) {
 		this.location = location;
 	}
 
