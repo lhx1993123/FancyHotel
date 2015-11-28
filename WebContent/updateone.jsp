@@ -17,6 +17,8 @@
 	    		</div>
     		</form>
     	</div>
-    	
+    	<c:if test="${not empty errorMessage}">
+	    	<div class="alert alert-warning" role="alert">${errorMessage}</div>
+	    </c:if>
     </jsp:body>
 </t:template>

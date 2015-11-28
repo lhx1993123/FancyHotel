@@ -1,6 +1,7 @@
 package edu.gatech.cs4400.FancyHotel.Controller;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,30 +18,29 @@ public class UpdateDateServlet extends BaseServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String currentstartdate = request.getParameter("currentstartdate");
-		String currentenddate = request.getParameter("currentenddate");
-		String newstartdate = request.getParameter("newstartdate");
-		String newenddate = request.getParameter("newenddate");
-		
+		Date newstartdate = Date.valueOf(request.getParameter("newstartdate"));
+		Date newenddate = Date.valueOf(request.getParameter("newenddate"));
 		Reservation reservation = (Reservation) request.getSession().getAttribute(ParameterNames.RESERVATION);
 		System.out.print(reservation==null);
 		Room.LOCATION location = reservation.getReserveRelationships().get(0).getRoom().getLocation();
-		List<Room> rooms = searchRooms(location, currentstartdate, currentenddate, newstartdate, newenddate);
-		request.setAttribute("rooms", rooms);
-		forward("/updateThree",request,response);
+		List<Room> rooms = Room.checkRoomsStillAvailable(location, newstartdate, newenddate, reservation.getReservationID());
+		if(rooms.size()==reservation.getReserveRelationships().size()){
+			reservation.setStart_date(newstartdate);
+			reservation.setEnd_date(newenddate);
+			request.getSession().setAttribute("newReservation", reservation);
+			request.getSession().setAttribute("rooms", rooms);
+			forward("/updateThree",request,response);
+		} else{
+			request.setAttribute(ParameterNames.ERROR_MESSAGE, 
+					"Rooms not available. Do you want to cancel the reservation?");
+			forward("/updateThree",request,response);
+		}
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
-	}
-	
-	//TODO: Implement DB query
-	private List<Room> searchRooms(Room.LOCATION location, String currentstartdate, String currentenddate, String newstartdate, String newenddate){
-		ArrayList<Room> rooms = new ArrayList<Room>();
-		return rooms;
 	}
 
 }

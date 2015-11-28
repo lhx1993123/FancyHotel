@@ -11,15 +11,29 @@
     		
     		<form  action="EnterDate" method="Get">
 	    		<div class="panel-body">
-	    			<span>Current Start Date:    </span><input type="date" name="currentstartdate">
-	   				<br>
-	    			<span>Current End Date:      </span><input type="date" name="currentenddate">
-					<br>
-					<span>New Start Date:        </span><input type="date" name="newstartdate">
-				    <br>
-				    <span>New End Date:          </span><input type="date" name="newenddate">
-				    <br>
-				    <button class="btn btn-default pull-right" type="submit">Search Availability</button>
+	    			<table style="width:100%">
+					  <tr>
+					    <td>
+							<h3>Current Start Date: </h3>
+							<div><c:out value="${reservation.start_date}"></c:out></div>
+						</td>
+					    <td>
+					    	<h3>Current End Date: </h3>
+							<div><c:out value="${reservation.end_date}"></c:out></div>
+					    </td> 
+					  </tr>
+					  <tr>
+					    <td>
+							<h3>New Start Date: </h3>
+							<input type="date" name="newstartdate">
+						</td>
+					    <td>
+					    	<h3>New End Date: </h3>
+							<input type="date" name="newenddate">
+					    </td> 
+					  </tr>
+					</table>
+					<button class="btn btn-default pull-right" type="submit">Search Availability</button>
 	    		</div>
     		</form>
     	</div>

@@ -34,11 +34,11 @@ public class UpdateConfirmationServlet extends BaseServlet {
 	}
 	private void search(HttpServletRequest request) throws Exception{
 		String confirmationID = request.getParameter(ParameterNames.CONFIRMATIONID);
-		if(!confirmationIDExist(confirmationID)){
+		Reservation curRes = Reservation.getReservationByID(Integer.parseInt(confirmationID));
+		if(curRes==null){
 			throw new Exception("Sorry, the confirmation ID:"+confirmationID+" is not exist.");
 		}
-		request.setAttribute(ParameterNames.RESERVATION, Reservation.getReservationByID(Integer.parseInt(confirmationID)));
-		request.getSession().setAttribute(ParameterNames.RESERVATION, Reservation.getReservationByID(Integer.parseInt(confirmationID)));
+		request.getSession().setAttribute(ParameterNames.RESERVATION, curRes);
 	}
 	
 	

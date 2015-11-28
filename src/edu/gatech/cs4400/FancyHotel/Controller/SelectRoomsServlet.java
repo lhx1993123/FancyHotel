@@ -47,7 +47,7 @@ public class SelectRoomsServlet extends BaseServlet {
 		Reservation.storeReservation(reservation);
 	}
 	
-	private Reservation getReservation(HttpServletRequest request){
+	protected Reservation getReservation(HttpServletRequest request){
 		Date startdate = (Date)request.getSession().getAttribute("startdate");
 		Date enddate = (Date)request.getSession().getAttribute("enddate");
 		String[] rooms = request.getParameterValues("selectedRooms");

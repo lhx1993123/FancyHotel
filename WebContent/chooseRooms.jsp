@@ -70,7 +70,7 @@
 						    <option value="${card.cardNo}">
 						    </c:forEach>
 						  </datalist>
-						 <a href="<c:url value="/addcard"/>">Add Card</a>
+						 <a href="<c:url value="/addCard"/>">Add Card</a>
 				    </td>
 				  </tr>
 				</table>

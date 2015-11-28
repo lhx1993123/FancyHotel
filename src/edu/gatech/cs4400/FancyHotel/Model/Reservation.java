@@ -57,8 +57,8 @@ public class Reservation {
 			if(reservationJSON.length()>0){
 				JSONObject resJSONObj = reservationJSON.getJSONObject(0);
 				curRes.setCardNo(resJSONObj.getString("CardNo"));
-				curRes.setEnd_date((Date)resJSONObj.get("StartDate"));
-				curRes.setStart_date((Date)resJSONObj.get("EndDate"));
+				curRes.setEnd_date((Date)resJSONObj.get("EndDate"));
+				curRes.setStart_date((Date)resJSONObj.get("StartDate"));
 				curRes.setUsername(resJSONObj.getString("Username"));
 				curRes.setReserveRelationships(ReserveRelationship.getReserveRelationship(ID));
 			} else{
@@ -71,28 +71,43 @@ public class Reservation {
 	}
 	
 	public static void storeReservation(Reservation reservation){
-		if(getReservationByID(reservation.getReservationID())!=null){
-			removeReservation(reservation.getReservationID());	
-		}
-		String sql = String.format("INSERT INTO RESERVATION VALUES("+
-									"%d,"+
-									"'%s',"
-									+ "'%s',"
-									+ "%d,"
-									+ "%.2f,"
-									+ "'%s',"
-									+ "'%s')", 
-									reservation.getReservationID(),
-									reservation.getStart_date().toString(),
-									reservation.getEnd_date().toString(),
-									reservation.isCanceled()?1:0,
-									reservation.getTotal_cost(),
-									reservation.getCardNo(),
-									reservation.getUsername());
-		DatabaseConnector.update(sql);
-		for(ReserveRelationship r : reservation.getReserveRelationships()){
+		if(getReservationByID(reservation.getReservationID())==null){
+			String sql = String.format("INSERT INTO RESERVATION VALUES("+
+					"%d,"+
+					"'%s',"
+					+ "'%s',"
+					+ "%d,"
+					+ "%.2f,"
+					+ "'%s',"
+					+ "'%s')", 
+					reservation.getReservationID(),
+					reservation.getStart_date().toString(),
+					reservation.getEnd_date().toString(),
+					reservation.isCanceled()?1:0,
+					reservation.getTotal_cost(),
+					reservation.getCardNo(),
+					reservation.getUsername());
+			DatabaseConnector.update(sql);
+			for(ReserveRelationship r : reservation.getReserveRelationships()){
 			ReserveRelationship.storeReserveRelationship(r);
-		}
+			}	
+		}	
+	}
+	
+	public static void updateReservation(Reservation reservation){
+		if(getReservationByID(reservation.getReservationID())!=null){
+			String sql = String.format("UPDATE RESERVATION SET "+
+					"StartDate='%s',"+
+					"EndDate='%s',"+
+					"TotalCost=%.2f "+
+					"WHERE ReservationID=%d"
+					, 
+					reservation.getStart_date().toString(),
+					reservation.getEnd_date().toString(),
+					reservation.getTotal_cost(),
+					reservation.reservationID);
+			DatabaseConnector.update(sql);
+		}	
 	}
 	
 	private static void removeReservation(int ID){

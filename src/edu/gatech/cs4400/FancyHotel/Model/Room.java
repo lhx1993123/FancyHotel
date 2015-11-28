@@ -59,8 +59,43 @@ public class Room {
 									"WHERE ROOM.RoomNo=RoomNo AND ((Startdate >= %s AND Startdate<= %s) "+
 									"OR (Enddate>=%s AND Enddate <= %s)))",
 									location.toString(), startdate.toString().replace("-", ""),
-									startdate.toString().replace("-", ""), 
 									enddate.toString().replace("-", ""),
+									startdate.toString().replace("-", ""), 
+									enddate.toString().replace("-", ""));
+		System.out.println(sql);
+		JSONArray rooms = DatabaseConnector.query(sql);
+		ArrayList<Room> returnRooms = new ArrayList<Room>();
+		try {
+			for(int i=0;i<rooms.length();i++){
+				JSONObject curRoom = rooms.getJSONObject(i);
+				Room newRoom = new Room(curRoom.getInt("RoomNo"),Room.LOCATION.valueOf(curRoom.getString("Location").toUpperCase().trim()),
+						Room.CATEGORY.valueOf(curRoom.getString("RoomCategory").toUpperCase().trim()),
+						curRoom.getInt("NoPeople"),curRoom.getDouble("Cost"),curRoom.getDouble("CostExtraBed"));
+				returnRooms.add(newRoom);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return returnRooms;
+	}
+	
+	
+	public static List<Room> checkRoomsStillAvailable(Room.LOCATION location, Date startdate, Date enddate, int confirmationID){
+		String sql = String.format("SELECT ROOM.* "
+				+ "FROM RESERVES NATURAL JOIN RESERVATION NATURAL JOIN ROOM "
+				+ "WHERE ReservationID=%d AND Location='%s' AND NOT EXISTS "
+				+ "(SELECT * "
+				+ "FROM RESERVES NATURAL JOIN RESERVATION NATURAL JOIN ROOM "
+				+ "WHERE ReservationID<>%d AND Location='%s' "
+				+ "AND ((Startdate >= %s AND Startdate<= %s) OR (Enddate>=%s AND Enddate <= %s)))",
+									confirmationID,
+									location.toString(),
+									confirmationID,
+									location.toString(),
+									startdate.toString().replace("-", ""),
+									enddate.toString().replace("-", ""),
+									startdate.toString().replace("-", ""),
 									enddate.toString().replace("-", ""));
 		System.out.println(sql);
 		JSONArray rooms = DatabaseConnector.query(sql);
