@@ -5,15 +5,13 @@
     <welcome-file>/login.jsp</welcome-file>
   </welcome-file-list>
   <servlet>
-  
-  <servlet-name>about</servlet-name>
+    <servlet-name>about</servlet-name>
     <jsp-file>/about.jsp</jsp-file>
   </servlet>
   <servlet-mapping>
     <servlet-name>about</servlet-name>
     <url-pattern>/about</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>main</servlet-name>
     <jsp-file>/main.jsp</jsp-file>
@@ -22,7 +20,6 @@
     <servlet-name>main</servlet-name>
     <url-pattern>/main</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>confirmation</servlet-name>
     <jsp-file>/confirmation.jsp</jsp-file>
@@ -31,16 +28,14 @@
     <servlet-name>confirmation</servlet-name>
     <url-pattern>/confirmation</url-pattern>
   </servlet-mapping>
-  
   <servlet>
-  <servlet-name>updateOne</servlet-name>
+    <servlet-name>updateOne</servlet-name>
     <jsp-file>/updateone.jsp</jsp-file>
   </servlet>
   <servlet-mapping>
     <servlet-name>updateOne</servlet-name>
     <url-pattern>/updateOne</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>addCard</servlet-name>
     <jsp-file>/addcard.jsp</jsp-file>
@@ -49,7 +44,6 @@
     <servlet-name>addCard</servlet-name>
     <url-pattern>/addCard</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>deleteCard</servlet-name>
     <jsp-file>/deletecard.jsp</jsp-file>
@@ -58,7 +52,6 @@
     <servlet-name>deleteCard</servlet-name>
     <url-pattern>/deleteCard</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>updateTwo</servlet-name>
     <jsp-file>/updatetwo.jsp</jsp-file>
@@ -67,7 +60,6 @@
     <servlet-name>updateTwo</servlet-name>
     <url-pattern>/updateTwo</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>updateThree</servlet-name>
     <jsp-file>/updatethree.jsp</jsp-file>
@@ -76,7 +68,6 @@
     <servlet-name>updateThree</servlet-name>
     <url-pattern>/updateThree</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>newUser</servlet-name>
     <jsp-file>/register.jsp</jsp-file>
@@ -85,7 +76,6 @@
     <servlet-name>newUser</servlet-name>
     <url-pattern>/newUser</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>loginServlet</servlet-name>
     <servlet-class>edu.gatech.cs4400.FancyHotel.Controller.LogInServlet</servlet-class>
@@ -102,7 +92,6 @@
     <servlet-name>UpdateServlet</servlet-name>
     <url-pattern>/EnterDate</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>searchServlet</servlet-name>
     <jsp-file>/searchRooms.jsp</jsp-file>
@@ -111,7 +100,6 @@
     <servlet-name>searchServlet</servlet-name>
     <url-pattern>/availability</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>SearchRoomServlet</servlet-name>
     <servlet-class>edu.gatech.cs4400.FancyHotel.Controller.SearchRoomsServlet</servlet-class>
@@ -120,8 +108,6 @@
     <servlet-name>SearchRoomServlet</servlet-name>
     <url-pattern>/searchRooms</url-pattern>
   </servlet-mapping>
-  
-  
   <servlet>
     <servlet-name>chooseRoomsServlet</servlet-name>
     <jsp-file>/chooseRooms.jsp</jsp-file>
@@ -130,7 +116,6 @@
     <servlet-name>chooseRoomsServlet</servlet-name>
     <url-pattern>/chooseRooms</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>selectRoomsServlet</servlet-name>
     <servlet-class>edu.gatech.cs4400.FancyHotel.Controller.SelectRoomsServlet</servlet-class>
@@ -139,7 +124,26 @@
     <servlet-name>selectRoomsServlet</servlet-name>
     <url-pattern>/selectRooms</url-pattern>
   </servlet-mapping>
-  
+  <servlet>
+    <servlet-name>searchConfirmationServlet</servlet-name>
+    <servlet-class>edu.gatech.cs4400.FancyHotel.Controller.UpdateConfirmationServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>searchConfirmationServlet</servlet-name>
+    <url-pattern>/searchConfirmation</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>registerServlet</servlet-name>
+    <servlet-class>edu.gatech.cs4400.FancyHotel.Controller.RegisterServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>registerServlet</servlet-name>
+    <url-pattern>/register</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>cancel</servlet-name>
+    <jsp-file>/cancel.jsp</jsp-file>
+  </servlet>
   
   <servlet>
     <servlet-name>submitUpdateServlet</servlet-name>
@@ -150,34 +154,10 @@
     <url-pattern>/submitUpdate</url-pattern>
   </servlet-mapping>
   
-  <servlet>
-    <servlet-name>searchConfirmationServlet</servlet-name>
-    <servlet-class>edu.gatech.cs4400.FancyHotel.Controller.UpdateConfirmationServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>searchConfirmationServlet</servlet-name>
-    <url-pattern>/searchConfirmation</url-pattern>
-  </servlet-mapping>
-  
-  
-  <servlet>
-    <servlet-name>registerServlet</servlet-name>
-    <servlet-class>edu.gatech.cs4400.FancyHotel.Controller.RegisterServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>registerServlet</servlet-name>
-    <url-pattern>/register</url-pattern>
-  </servlet-mapping>
-  
-  <servlet>
-    <servlet-name>cancel</servlet-name>
-    <jsp-file>/cancel.jsp</jsp-file>
-  </servlet>
   <servlet-mapping>
     <servlet-name>cancel</servlet-name>
     <url-pattern>/cancel</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>viewReview</servlet-name>
     <jsp-file>/viewReview.jsp</jsp-file>
@@ -186,7 +166,6 @@
     <servlet-name>viewReview</servlet-name>
     <url-pattern>/viewReview</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>getReview</servlet-name>
     <servlet-class>edu.gatech.cs4400.FancyHotel.Controller.ViewReviewServlet</servlet-class>
@@ -194,8 +173,7 @@
   <servlet-mapping>
     <servlet-name>getReview</servlet-name>
     <url-pattern>/getReview</url-pattern>
-  </servlet-mapping>  
-  
+  </servlet-mapping>
   <servlet>
     <servlet-name>giveReview</servlet-name>
     <jsp-file>/giveReview.jsp</jsp-file>
@@ -203,8 +181,7 @@
   <servlet-mapping>
     <servlet-name>giveReview</servlet-name>
     <url-pattern>/giveReview</url-pattern>
-  </servlet-mapping> 
-  
+  </servlet-mapping>
   <servlet>
     <servlet-name>generateReview</servlet-name>
     <servlet-class>edu.gatech.cs4400.FancyHotel.Controller.GiveReviewServlet</servlet-class>
@@ -212,8 +189,7 @@
   <servlet-mapping>
     <servlet-name>generateReview</servlet-name>
     <url-pattern>/generateReview</url-pattern>
-  </servlet-mapping>  
-  
+  </servlet-mapping>
   <servlet>
     <servlet-name>reservationReport</servlet-name>
     <jsp-file>/reservationReport.jsp</jsp-file>
@@ -222,9 +198,46 @@
     <servlet-name>reservationReport</servlet-name>
     <url-pattern>/reservationReport</url-pattern>
   </servlet-mapping>
-  
-  
-    
+  <servlet>
+    <servlet-name>viewReservationReport</servlet-name>
+    <jsp-file>/reservationReport.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>viewReservationReport</servlet-name>
+    <url-pattern>/viewReservationReport</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>popRoomCategory</servlet-name>
+    <servlet-class>edu.gatech.cs4400.FancyHotel.Controller.PopRoomCategoryServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>popRoomCategory</servlet-name>
+    <url-pattern>/popRoomCategory</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>viewPopRoomCategory</servlet-name>
+    <jsp-file>/popRoomCategory.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>viewPopRoomCategory</servlet-name>
+    <url-pattern>/viewPopRoomCategory</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>revenueReport</servlet-name>
+    <servlet-class>edu.gatech.cs4400.FancyHotel.Controller.RevenueReportServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>revenueReport</servlet-name>
+    <url-pattern>/revenueReport</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>viewRevenueReport</servlet-name>
+    <jsp-file>/revenueReport.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>viewRevenueReport</servlet-name>
+    <url-pattern>/viewRevenueReport</url-pattern>
+  </servlet-mapping>
   <mime-mapping>
     <extension>css</extension>
     <mime-type>text/css</mime-type>
