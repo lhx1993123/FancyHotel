@@ -22,9 +22,9 @@
 				</c:if>
 				<c:if test="${user.userType=='manager'}">
 					<div class="btn-group-vertical center-block" role="group">
-					  <a role="button" class="btn btn-default">View Reservation Report</a>
-					  <a role="button" class="btn btn-default">View popular room category report</a>
-					  <a role="button" class="btn btn-default">View revenue report</a>
+					  <a href="<c:url value="/reservationReport"/>" role="button" class="btn btn-default">View Reservation Report</a>
+					  <a href="<c:url value="/popRoomCategory"/>" role="button" class="btn btn-default">View popular room category report</a>
+					  <a href="<c:url value="/revenueReport"/>" role="button" class="btn btn-default">View revenue report</a>
 					</div>
 				</c:if>
     		</div>

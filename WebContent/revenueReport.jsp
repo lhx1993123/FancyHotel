@@ -7,7 +7,7 @@
     
        	<div class="panel panel-info">
     		<div class="panel-heading">
-    			<h2>Reservation Report </h2>
+    			<h2>Revenue Report </h2>
     		</div>
     		
 	   		<div class="panel-body">
@@ -16,7 +16,7 @@
 				    <tr>
 				    <th>Month</th>
 				    <th>Location</th>
-				    <th>Total number of reservations</th>
+				    <th>Total revenue</th>
 				    </tr>
 				</thead>
 			    <tbody>
@@ -24,7 +24,7 @@
 		          	<tr>
 		            <td><c:out value="${curManagerReport.month}"></c:out></td>
 		            <td><c:out value="${curManagerReport.location}"></c:out></td>
-		            <td><c:out value="${curManagerReport.numOfRes}"></c:out></td>
+		            <td><c:out value="${curManagerReport.revenue}"></c:out></td>
 		          	</tr>
 		          </c:forEach>
 			    </tbody>
