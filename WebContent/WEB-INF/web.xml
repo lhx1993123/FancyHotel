@@ -192,7 +192,7 @@
   </servlet-mapping>
   <servlet>
     <servlet-name>reservationReport</servlet-name>
-    <jsp-file>/reservationReport.jsp</jsp-file>
+    <servlet-class>edu.gatech.cs4400.FancyHotel.Controller.ReservationReportServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>reservationReport</servlet-name>
