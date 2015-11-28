@@ -5,12 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import edu.gatech.cs4400.FancyHotel.Model.Room.LOCATION;
 
 public class Review {
 	
-	public enum LOCATION{ATLANTA, CHARLOTTE, SAVANNAH, ORLANDO, MIAMI};
-	private Review.LOCATION location;
+	private Room.LOCATION location;
 	private String comment;
 	private String username;
 	public RATING rating;
@@ -37,8 +39,22 @@ public class Review {
 		this.rating = rating;
 	}
 	
+	public static int generateReviewNo(){
+		String sql = "SELECT MAX(ReviewNo) AS MAX FROM HOTEL_REVIEW";
+		JSONArray jArray = DatabaseConnector.query(sql);
+		try {
+			JSONObject obj = jArray.getJSONObject(0);
+			int currentMaxNo = obj.getInt("MAX");
+			return currentMaxNo+1;
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return 1;
+		}
+	}
+	
 	//TODO: implement
-	public static List<Review> getReviewsByLocation(Review.LOCATION location) {
+	public static List<Review> getReviewsByLocation(Room.LOCATION location) {
 		String sql = String.format("SELECT Rating, Comment FROM HOTEL_REVIEW " +
 									"WHERE Location='%s' ",
 									location.toString());
@@ -58,7 +74,13 @@ public class Review {
 		}
 		return returnReviews;
 	}
-
+	
+	public static void CreateReview(int reviewNo, Room.LOCATION location, String rating, String comment, String username) {
+		String sql =
+				"INSERT INTO HOTEL_REVIEW (ReviewNo, Rating, Location, Comment, Username)"+
+				"Values('"+reviewNo+"', '"+rating+"', '"+location+"', '"+comment+"', '"+username+"')";
+		DatabaseConnector.update(sql);
+	}
 	
 	public LOCATION getLocation() {
 		return location;

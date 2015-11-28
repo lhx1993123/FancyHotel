@@ -13,4 +13,5 @@ public class ParameterNames {
 	public static final String CONFIRMATIONID = "confirmationID";
 	public static final String RESERVATION = "reservation";
 	public static final String ERROR_MESSAGE = "errorMessage";
+	public static final String REVIEWNO = "ReviewNo";
 }

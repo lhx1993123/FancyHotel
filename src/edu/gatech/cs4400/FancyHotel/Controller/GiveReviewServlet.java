@@ -10,7 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 import com.sun.xml.internal.bind.v2.runtime.Location;
 
 import edu.gatech.cs4400.FancyHotel.Model.Review;
+import edu.gatech.cs4400.FancyHotel.Model.Review.RATING;
 import edu.gatech.cs4400.FancyHotel.Model.Room;
+import edu.gatech.cs4400.FancyHotel.Model.Room.LOCATION;
+import edu.gatech.cs4400.FancyHotel.Model.User;
 
 /**
  * Servlet implementation class GiveReviewServlet
@@ -40,26 +43,25 @@ public class GiveReviewServlet extends BaseServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
 		try{
 			review(request);
-			redirect(request.getContextPath()+"/giveReview",response);
+			redirect(request.getContextPath()+"/main",response);
 		} catch(Exception e){
 			request.setAttribute(ParameterNames.ERROR_MESSAGE, e.getMessage());
+			e.printStackTrace();
 			forward("/giveReview",request,response);
 		}
 	}
 
 	private boolean review(HttpServletRequest request) throws Exception {
+		User curUser = (User)request.getSession().getAttribute("user");
 		String location = request.getParameter(ParameterNames.LOCATION);
 		String rating = request.getParameter(ParameterNames.RATING);
 		String comment = request.getParameter(ParameterNames.COMMENT);
-		Review review = generateReview(Room.LOCATION.valueOf(location), comment, Review.RATING.valueOf(rating), "lhx", 12345);
+		int reviewNo = Review.generateReviewNo();
+		Review.CreateReview(reviewNo, Room.LOCATION.valueOf(location.toUpperCase()), rating.toUpperCase(), comment, curUser.getUsername());
+		Review review = new Review(Review.RATING.valueOf(rating.toUpperCase()), comment);
 		request.getSession().setAttribute(ParameterNames.COMMENT, review);
 		return review!=null;
-	}
-	
-	private Review generateReview(Room.LOCATION location, String comment, Review.RATING rating, String username, int reviewNo){
-		return new Review(location, comment, rating, username, reviewNo);
 	}
 }
