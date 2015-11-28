@@ -62,6 +62,16 @@
 					    	</c:if>
 				    	</span>
 				    </td>
+				    <td>
+				    	<input list="cards" name="card">
+				    	
+						  <datalist id="cards">
+						  	<c:forEach var="card" items="${user.cards}">
+						    <option value="${card.cardNo}">
+						    </c:forEach>
+						  </datalist>
+						 <a href="<c:url value="/addcard"/>">Add Card</a>
+				    </td>
 				  </tr>
 				</table>
 			    

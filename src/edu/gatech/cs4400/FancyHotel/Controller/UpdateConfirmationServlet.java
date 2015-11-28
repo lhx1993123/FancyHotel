@@ -37,8 +37,8 @@ public class UpdateConfirmationServlet extends BaseServlet {
 		if(!confirmationIDExist(confirmationID)){
 			throw new Exception("Sorry, the confirmation ID:"+confirmationID+" is not exist.");
 		}
-		request.setAttribute(ParameterNames.RESERVATION, Reservation.getReservationByID(confirmationID));
-		request.getSession().setAttribute(ParameterNames.RESERVATION, Reservation.getReservationByID(confirmationID));
+		request.setAttribute(ParameterNames.RESERVATION, Reservation.getReservationByID(Integer.parseInt(confirmationID)));
+		request.getSession().setAttribute(ParameterNames.RESERVATION, Reservation.getReservationByID(Integer.parseInt(confirmationID)));
 	}
 	
 	

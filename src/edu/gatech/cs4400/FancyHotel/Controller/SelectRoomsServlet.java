@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import edu.gatech.cs4400.FancyHotel.Model.Reservation;
 import edu.gatech.cs4400.FancyHotel.Model.ReserveRelationship;
 import edu.gatech.cs4400.FancyHotel.Model.Room;
+import edu.gatech.cs4400.FancyHotel.Model.User;
 
 public class SelectRoomsServlet extends BaseServlet {
 
@@ -28,7 +29,10 @@ public class SelectRoomsServlet extends BaseServlet {
 		String buttonType = request.getParameter("submit");
 		if(buttonType!=null){
 			//submit reservation
-			
+			Reservation r = getReservation(request);
+			submitReservation(r);
+			request.getSession().setAttribute("reservation", r);
+			redirect(request.getContextPath()+"/confirmation",response);
 		} else{
 			//check price
 			Reservation r = getReservation(request);
@@ -39,9 +43,8 @@ public class SelectRoomsServlet extends BaseServlet {
 	}
 	
 	
-	//TODO: Store the reservation into DB
 	private void submitReservation(Reservation reservation){
-		
+		Reservation.storeReservation(reservation);
 	}
 	
 	private Reservation getReservation(HttpServletRequest request){
@@ -49,11 +52,15 @@ public class SelectRoomsServlet extends BaseServlet {
 		Date enddate = (Date)request.getSession().getAttribute("enddate");
 		String[] rooms = request.getParameterValues("selectedRooms");
 		String[] extraBeds = request.getParameterValues("selectedExtraBeds");
+		String cardNo = request.getParameter("card");
+		User curUser = (User) request.getSession().getAttribute(ParameterNames.USER);
 		String location = (String) request.getSession().getAttribute(ParameterNames.LOCATION);
-		Reservation r = new Reservation(Reservation.getLargestReservationID(),startdate,enddate);
+		Reservation r = new Reservation(Reservation.generateReservationID(),startdate,enddate);
+		r.setCardNo(cardNo);
+		r.setUsername(curUser.getUsername());
 		if(rooms!=null){
 			for(String room : rooms){
-				Room tempRoom = Room.getRoomByRoomNumberAndLocation(Integer.parseInt(room), Room.LOCATION.valueOf(location));
+				Room tempRoom = Room.getRoomByRoomNumberAndLocation(Integer.parseInt(room), Room.LOCATION.valueOf(location.toUpperCase().trim()));
 				boolean hasExtra = false;
 				if(extraBeds!=null){
 					for(String extra : extraBeds){
@@ -62,13 +69,11 @@ public class SelectRoomsServlet extends BaseServlet {
 						}
 					}
 				}
-				ReserveRelationship relationship = new ReserveRelationship(tempRoom, hasExtra,r);
+				ReserveRelationship relationship = new ReserveRelationship(tempRoom, hasExtra);
+				relationship.setReservation(r);
 				r.getReserveRelationships().add(relationship);
 			}
 		}
 		return r;
 	}
-	
-	
-
 }

@@ -19,9 +19,24 @@ public class Room {
 	private double costPerExtraBed;
 	
 	
-	//TODO: Implement this.
 	public static Room getRoomByRoomNumberAndLocation(int roomNumber, LOCATION location){
-		return new Room(roomNumber,location, Room.CATEGORY.FAMILY,4,100,50);
+		String sql = String.format("SELECT * FROM ROOM "+
+				"WHERE Location='%s' "+
+				"AND RoomNo=%d",location.toString(), roomNumber);
+		System.out.println(sql);
+		JSONArray rooms = DatabaseConnector.query(sql);
+		Room returnRooms = null;
+		try {
+			JSONObject curRoom = rooms.getJSONObject(0);
+			Room newRoom = new Room(curRoom.getInt("RoomNo"),Room.LOCATION.valueOf(curRoom.getString("Location").toUpperCase().trim()),
+				Room.CATEGORY.valueOf(curRoom.getString("RoomCategory").toUpperCase().trim()),
+				curRoom.getInt("NoPeople"),curRoom.getDouble("Cost"),curRoom.getDouble("CostExtraBed"));
+			returnRooms = newRoom;
+		} catch (Exception e) {
+		// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return returnRooms;
 	}
 	
 	public Room(int roomNumber, LOCATION location, Room.CATEGORY category, int numberOfPeople,
@@ -43,8 +58,10 @@ public class Room {
 									"RESERVATION NATURAL JOIN RESERVES "+
 									"WHERE ROOM.RoomNo=RoomNo AND ((Startdate >= %s AND Startdate<= %s) "+
 									"OR (Enddate>=%s AND Enddate <= %s)))",
-									location.toString(), startdate.toString(),startdate.toString(), 
-									enddate.toString(),enddate.toString());
+									location.toString(), startdate.toString().replace("-", ""),
+									startdate.toString().replace("-", ""), 
+									enddate.toString().replace("-", ""),
+									enddate.toString().replace("-", ""));
 		System.out.println(sql);
 		JSONArray rooms = DatabaseConnector.query(sql);
 		ArrayList<Room> returnRooms = new ArrayList<Room>();

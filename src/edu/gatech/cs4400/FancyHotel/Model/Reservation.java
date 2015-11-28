@@ -6,6 +6,12 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.mysql.fabric.xmlrpc.base.Data;
+
 import edu.gatech.cs4400.FancyHotel.Model.Room.LOCATION;
 
 public class Reservation {
@@ -13,7 +19,9 @@ public class Reservation {
 	private Date start_date;
 	private Date end_date;
 	private String username;
+	private String cardNo;
 	private int review_no;
+	private boolean isCanceled = false;
 	
 	public Reservation(int reservationID, Date start_date, Date end_date) {
 		this.reservationID = reservationID;
@@ -25,19 +33,79 @@ public class Reservation {
 	
 	
 	//TODO: Query db and find the biggest reservation ID.
-	public static int getLargestReservationID(){
-		Random r = new Random();
-		return r.nextInt(10000000);
+	public static int generateReservationID(){
+		String sql = "SELECT MAX(ReservationID) AS MAX FROM RESERVATION";
+		JSONArray jArray = DatabaseConnector.query(sql);
+		try {
+			JSONObject obj = jArray.getJSONObject(0);
+			int currentMaxID = obj.getInt("MAX");
+			return currentMaxID+1;
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return 1;
+		}
 	}
 	
-	public static Reservation getReservationByID(String ID){
-		Reservation res = new Reservation(10245, null, null);
-		ReserveRelationship rr1 =
-				new ReserveRelationship(new Room(1,LOCATION.ATLANTA,Room.CATEGORY.FAMILY,3,100.0,50.0),false,res);
-		ArrayList<ReserveRelationship> rrs = new ArrayList<ReserveRelationship>();
-		rrs.add(rr1);
-		res.setReserveRelationships(rrs);
-		return res;
+	public static Reservation getReservationByID(int ID){
+		String sql = "SELECT * "
+				+ "FROM RESERVATION"
+				+ " WHERE RESERVATION.ReservationID ="+"'"+ID+"'";
+		JSONArray reservationJSON = DatabaseConnector.query(sql);
+		Reservation curRes = new Reservation(ID,null,null);
+		try {
+			if(reservationJSON.length()>0){
+				JSONObject resJSONObj = reservationJSON.getJSONObject(0);
+				curRes.setCardNo(resJSONObj.getString("CardNo"));
+				curRes.setEnd_date((Date)resJSONObj.get("StartDate"));
+				curRes.setStart_date((Date)resJSONObj.get("EndDate"));
+				curRes.setUsername(resJSONObj.getString("Username"));
+				curRes.setReserveRelationships(ReserveRelationship.getReserveRelationship(ID));
+			} else{
+				return null;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return curRes;
+	}
+	
+	public static void storeReservation(Reservation reservation){
+		if(getReservationByID(reservation.getReservationID())!=null){
+			removeReservation(reservation.getReservationID());	
+		}
+		String sql = String.format("INSERT INTO RESERVATION VALUES("+
+									"%d,"+
+									"'%s',"
+									+ "'%s',"
+									+ "%d,"
+									+ "%.2f,"
+									+ "'%s',"
+									+ "'%s')", 
+									reservation.getReservationID(),
+									reservation.getStart_date().toString(),
+									reservation.getEnd_date().toString(),
+									reservation.isCanceled()?1:0,
+									reservation.getTotal_cost(),
+									reservation.getCardNo(),
+									reservation.getUsername());
+		DatabaseConnector.update(sql);
+		for(ReserveRelationship r : reservation.getReserveRelationships()){
+			ReserveRelationship.storeReserveRelationship(r);
+		}
+	}
+	
+	private static void removeReservation(int ID){
+		String sql = String.format("DELETE * FROM RESERVATION, RESERVES WHERE "+
+									"ReservationID=%d", ID);
+		DatabaseConnector.update(sql);
+	}
+	
+	
+	public static void cancelReservation(int ID){
+		String sql = String.format("UPDATE RESERVATION SET IsCanceled=1 WHERE "+
+				"ReservationID=%d", ID);
+		DatabaseConnector.update(sql);
 	}
 
 
@@ -116,6 +184,22 @@ public class Reservation {
 
 	public void setReserveRelationships(List<ReserveRelationship> reserveRelationships) {
 		this.reserveRelationships = reserveRelationships;
+	}
+
+	public String getCardNo() {
+		return cardNo;
+	}
+
+	public void setCardNo(String cardNo) {
+		this.cardNo = cardNo;
+	}
+
+	public boolean isCanceled() {
+		return isCanceled;
+	}
+
+	public void setCanceled(boolean isCanceled) {
+		this.isCanceled = isCanceled;
 	}
 	
 }

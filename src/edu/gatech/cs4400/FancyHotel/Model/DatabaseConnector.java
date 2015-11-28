@@ -23,8 +23,8 @@ public class DatabaseConnector {
 			 con = DriverManager.getConnection("jdbc:mysql://academic-mysql.cc.gatech.edu/"+ACCOUNT,
 					 ACCOUNT,KEY);
 			 if(!con.isClosed()){
-				 System.out.println("Connection established!");
 				 Statement s = con.createStatement();
+				 System.out.println(sql);
 				 ResultSet rs = s.executeQuery(sql);
 				 jsonArray = convert(rs);
 			 }
@@ -48,6 +48,7 @@ public class DatabaseConnector {
 					 ACCOUNT,KEY);
 			 if(!con.isClosed()){
 				 Statement s = con.createStatement();
+				 System.out.println(sql);
 				 s.executeUpdate(sql);
 			 }
 		 } catch(Exception e) {
