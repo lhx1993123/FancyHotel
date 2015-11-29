@@ -4,52 +4,21 @@
 
 <t:template>
     <jsp:body>
-		<div class="panel panel-info">
+    	<div class="panel panel-info">
     		<div class="panel-heading">
-    			<h2>View Review </h2>
+    			<h2>Cancel Reservation</h2>
     		</div>
-	   		<div class="panel-body">
-				<span>Reservation ID: </span>
-				<span>12134 </span><br><br>
-				<span>Start Date: </h3><span class="label label-default"></span><br><br>
-				<span>End Date: </h3><span class="label label-default"></span><br><br>
-				
-				<div class="bs-example" data-example-id="table-within-panel">
-				    <div class="panel panel-default">
-				      <!-- Default panel contents -->
-				      <table class="table">
-				        <thead>
-				          <tr>
-				            <th>Room number</th>
-				            <th>Room category</th>
-				            <th>#person allowed</th>
-				           	<th>Cost per day</th>
-				            <th>cost of extra bed per day</th>
-				            <th>Select extra bed</th>
-				          </tr>
-				        </thead>
-				        <tbody>
-				          <tr>
-				            <td>1</td>
-				      		<td><input type="checkbox" value=""></td>
-				            
-				          </tr>
-				          <tr>
-				            <td>2</td>
-				          </tr>
-				          <tr>
-				            <td>3</td>
-				          </tr>
-				        </tbody>
-				      </table>
-			    </div>
-			  	</div>
-			  	
-			  	<span>Total Cost of Reservation:</span><br><br>
-				<span>Date of Cancellation:</span><br><br>
-				<span>Amount to be refunded:</span><br><br>
-				<a href="<c:url value="/newUser"/>" role="button" class="btn btn-default pull-right" >Cancel</a>
-	   		</div>
+    		<form  action="searchReservationCancel" method="GET">
+	    		<div class="panel-body">
+	    			<p>Reservation ID:<p>
+	    			<input type="text" class="form-control" name="confirmationID" aria-describedby="basic-addon3">
+	   				<br>
+				    <button class="btn btn-default pull-right" type="submit">Search</button>
+	    		</div>
+    		</form>
     	</div>
+    	<c:if test="${not empty errorMessage}">
+	    	<div class="alert alert-warning" role="alert">${errorMessage}</div>
+	    </c:if>
     </jsp:body>
 </t:template>

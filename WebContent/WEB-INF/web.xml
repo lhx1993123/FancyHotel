@@ -144,9 +144,28 @@
     <servlet-name>cancel</servlet-name>
     <jsp-file>/cancel.jsp</jsp-file>
   </servlet>
-  
+  <servlet-mapping>
+    <servlet-name>cancel</servlet-name>
+    <url-pattern>/cancel</url-pattern>
+  </servlet-mapping>
   <servlet>
-    <servlet-name>submitUpdateServlet</servlet-name>
+    <servlet-name>searchReservationCancelServlet</servlet-name>
+    <servlet-class>edu.gatech.cs4400.FancyHotel.Controller.SearchReservationCancelServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>searchReservationCancelServlet</servlet-name>
+    <url-pattern>/searchReservationCancel</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>cancelReservation</servlet-name>
+    <jsp-file>/cancelReservation.jsp</jsp-file>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>cancelReservation</servlet-name>
+    <url-pattern>/cancelReservation</url-pattern>
+  </servlet-mapping>
+  <servlet>  <servlet-name>submitUpdateServlet</servlet-name>
     <servlet-class>edu.gatech.cs4400.FancyHotel.Controller.SubmitUpdate</servlet-class>
   </servlet>
   <servlet-mapping>
@@ -154,12 +173,8 @@
     <url-pattern>/submitUpdate</url-pattern>
   </servlet-mapping>
   
-  <servlet-mapping>
-    <servlet-name>cancel</servlet-name>
-    <url-pattern>/cancel</url-pattern>
-  </servlet-mapping>
   <servlet>
-    <servlet-name>viewReview</servlet-name>
+  <servlet-name>viewReview</servlet-name>
     <jsp-file>/viewReview.jsp</jsp-file>
   </servlet>
   <servlet-mapping>

@@ -6,12 +6,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import edu.gatech.cs4400.FancyHotel.Controller.BaseServlet;
-import edu.gatech.cs4400.FancyHotel.Controller.ParameterNames;
 import edu.gatech.cs4400.FancyHotel.Model.Reservation;
-import edu.gatech.cs4400.FancyHotel.Model.User;
 
-public class UpdateConfirmationServlet extends BaseServlet {
+public class SearchReservationCancelServlet extends BaseServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -19,10 +16,10 @@ public class UpdateConfirmationServlet extends BaseServlet {
 		// TODO Auto-generated method stub
 		try{
 			search(request);
-			forward("/updateTwo",request,response);
+			forward("/cancelReservation",request,response);
 		} catch(Exception e){
 			request.setAttribute(ParameterNames.ERROR_MESSAGE, e.getMessage());
-			forward("/updateOne",request,response);
+			forward("/cancel",request,response);
 		}
 	}
 
@@ -40,5 +37,5 @@ public class UpdateConfirmationServlet extends BaseServlet {
 		}
 		request.getSession().setAttribute(ParameterNames.RESERVATION, curRes);
 	}
-	
+
 }
