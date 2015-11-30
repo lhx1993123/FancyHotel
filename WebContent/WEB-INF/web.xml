@@ -158,6 +158,15 @@
   </servlet-mapping>
   
   <servlet>
+    <servlet-name>cancelServlet</servlet-name>
+    <servlet-class>edu.gatech.cs4400.FancyHotel.Controller.CancelServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>cancelServlet</servlet-name>
+    <url-pattern>/cancelServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
     <servlet-name>removeCard</servlet-name>
     <servlet-class>edu.gatech.cs4400.FancyHotel.Controller.RemoveCardServlet</servlet-class>
   </servlet>

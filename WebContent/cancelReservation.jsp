@@ -46,7 +46,8 @@
 				          </c:forEach>
 				            </tbody>
 				          </table>
-				        <p>Total Cost Updated: <c:out value="${reservation.total_cost}"></c:out> <p>
+				        <p>Total Cost: <c:out value="${reservation.total_cost}"></c:out> <p>
+				        <p>Amount to be refunded: <c:out value="${refund}"></c:out> <p>
 					    <button class="btn btn-default pull-right" type="submit">Cancel</button>
 		    		</div>
 	    		</form>

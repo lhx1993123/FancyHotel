@@ -1,6 +1,8 @@
 package edu.gatech.cs4400.FancyHotel.Controller;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.util.Calendar;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -34,8 +36,10 @@ public class SearchReservationCancelServlet extends BaseServlet {
 		Reservation curRes = Reservation.getReservationByID(Integer.parseInt(confirmationID));
 		if(curRes==null){
 			throw new Exception("Sorry, the confirmation ID:"+confirmationID+" is not exist.");
+		} else if(curRes.isCanceled()){
+			throw new Exception("Sorry, the confirmation ID:"+confirmationID+" has already been canceled.");
 		}
+		request.getSession().setAttribute("refund", curRes.getRefund(new Date(Calendar.getInstance().getTimeInMillis())));
 		request.getSession().setAttribute(ParameterNames.RESERVATION, curRes);
 	}
-
 }

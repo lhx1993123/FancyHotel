@@ -60,6 +60,7 @@ public class Reservation {
 				curRes.setEnd_date((Date)resJSONObj.get("EndDate"));
 				curRes.setStart_date((Date)resJSONObj.get("StartDate"));
 				curRes.setUsername(resJSONObj.getString("Username"));
+				curRes.isCanceled = resJSONObj.getBoolean("IsCanceled");
 				curRes.setReserveRelationships(ReserveRelationship.getReserveRelationship(ID));
 			} else{
 				return null;
@@ -110,16 +111,18 @@ public class Reservation {
 		}	
 	}
 	
-	private static void removeReservation(int ID){
-		String sql = String.format("DELETE * FROM RESERVATION, RESERVES WHERE "+
-									"ReservationID=%d", ID);
-		DatabaseConnector.update(sql);
-	}
+//	private static void removeReservation(int ID){
+//		String sql = String.format("DELETE * FROM RESERVATION, RESERVES WHERE "+
+//									"ReservationID=%d", ID);
+//		DatabaseConnector.update(sql);
+//	}
 	
 	
 	public static void cancelReservation(int ID){
 		String sql = String.format("UPDATE RESERVATION SET IsCanceled=1 WHERE "+
 				"ReservationID=%d", ID);
+		DatabaseConnector.update(sql);
+		sql = String.format("DELETE FROM RESERVES WHERE ReservationID=%d", ID);
 		DatabaseConnector.update(sql);
 	}
 
@@ -152,6 +155,17 @@ public class Reservation {
 	public void setEnd_date(Date end_date) {
 		this.end_date = end_date;
 	}
+	
+	public double getRefund(Date cancelDate){
+		int dayDiff = getDayDifference(cancelDate,this.start_date);
+		if(dayDiff<=1){
+			return 0;
+		} else if(dayDiff<=3){
+			return getTotal_cost()*0.8;
+		} else{
+			return getTotal_cost();
+		}
+	}
 
 
 	public double getTotal_cost() {
@@ -167,7 +181,11 @@ public class Reservation {
 	}
 	
 	private int getDurationInDays(){
-		return (int) TimeUnit.MILLISECONDS.toDays((this.end_date.getTime() - this.start_date.getTime()));
+		return getDayDifference(this.start_date,this.end_date);
+	}
+	
+	private int getDayDifference(Date day1, Date day2){
+		return (int) TimeUnit.MILLISECONDS.toDays((day2.getTime() - day1.getTime()));
 	}
 
 

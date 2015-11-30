@@ -7,10 +7,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import edu.gatech.cs4400.FancyHotel.Model.Reservation;
+
 /**
  * Servlet implementation class CancelServlet
  */
-@WebServlet("/CancelServlet")
+
 public class CancelServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -27,7 +29,6 @@ public class CancelServlet extends BaseServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -35,7 +36,9 @@ public class CancelServlet extends BaseServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		Reservation r = (Reservation) request.getSession().getAttribute(ParameterNames.RESERVATION);
+		Reservation.cancelReservation(r.getReservationID());
+		redirect(request.getContextPath()+"/main",response);
 	}
 
 }
