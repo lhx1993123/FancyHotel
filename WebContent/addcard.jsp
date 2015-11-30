@@ -8,17 +8,33 @@
     		<div class="panel-heading">
     			<h2>Add Card</h2>
     		</div>
-    		<form  action="card info" method="POST">
+    		<form  action="submitCard" method="POST">
 	    		<div class="panel-body">
 	    			<input type="text" class="form-control" name="nameonCard" placeholder="Name on Card" aria-describedby="basic-addon3">
 	   				<br>
 	    			<input type="text" class="form-control" name="cardNumber" placeholder="Card Number" aria-describedby="basic-addon3">
 					<br>
-					<input type="password" class="form-control" name="expireDate" placeholder="Expiration Date" aria-describedby="basic-addon3">
+					<input type="date" class="form-control" name="expireDate" placeholder="Expiration Date" aria-describedby="basic-addon3">
 				    <br>
-				    <input type="password" class="form-control" name="cvv" placeholder="Cvv" aria-describedby="basic-addon3">
+				    <input type="text" class="form-control" name="cvv" placeholder="cvv" aria-describedby="basic-addon3">
 				    <br>
-				    <button class="btn btn-default pull-right" type="save">Save</button>
+				    <button class="btn btn-default pull-right" type="submit">Save</button>
+	    		</div>
+    		</form>
+    	</div>
+    	<div class="panel panel-info">
+    		<div class="panel-heading">
+    			<h2>Remove Card</h2>
+    		</div>
+    		<form  action="removeCard" method="POST">
+	    		<div class="panel-body">
+	    			<input list="cards" name="card">
+					  <datalist id="cards">
+					  	<c:forEach var="card" items="${user.cards}">
+					    <option value="${card.cardNo}">
+					    </c:forEach>
+					  </datalist>
+				    <button class="btn btn-default pull-right" type="submit">Remove</button>
 	    		</div>
     		</form>
     	</div>

@@ -54,6 +54,8 @@ public class SelectRoomsServlet extends BaseServlet {
 		String[] extraBeds = request.getParameterValues("selectedExtraBeds");
 		String cardNo = request.getParameter("card");
 		User curUser = (User) request.getSession().getAttribute(ParameterNames.USER);
+//		curUser = User.login(curUser.getUsername(),curUser.getPassword(), false);
+//		request.getSession().setAttribute(ParameterNames.USER, curUser);
 		String location = (String) request.getSession().getAttribute(ParameterNames.LOCATION);
 		Reservation r = new Reservation(Reservation.generateReservationID(),startdate,enddate);
 		r.setCardNo(cardNo);

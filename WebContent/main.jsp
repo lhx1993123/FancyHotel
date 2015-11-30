@@ -18,7 +18,6 @@
 					  <a href="<c:url value="/giveReview"/>"role="button" class="btn btn-default">Provide feedback</a>
 					  <a href="<c:url value="/viewReview"/>"role="button" class="btn btn-default">View feedback</a>
 					</div>
-				
 				</c:if>
 				<c:if test="${user.userType=='manager'}">
 					<div class="btn-group-vertical center-block" role="group">

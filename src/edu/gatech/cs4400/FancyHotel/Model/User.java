@@ -62,11 +62,8 @@ public class User {
 						User user = new User(username, password);
 						for(int i=0;i<jsoncards.length();i++){
 							JSONObject temp = jsoncards.getJSONObject(i);
-							Card newCard = new Card();
-							newCard.setCardNo(temp.getString("CardNo"));
-							newCard.setCvv(temp.getString("CVV"));
-							newCard.setExpDate((Date)temp.get("ExpDate"));
-							newCard.setName(temp.getString("Name"));
+							Card newCard = new Card(temp.getString("CardNo"),temp.getString("CVV"),
+									(Date)temp.get("ExpDate"),temp.getString("Name"),temp.getString("Username"));
 							user.cards.add(newCard);
 						}
 						return user;

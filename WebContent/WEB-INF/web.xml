@@ -156,6 +156,15 @@
     <servlet-name>searchReservationCancelServlet</servlet-name>
     <url-pattern>/searchReservationCancel</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>removeCard</servlet-name>
+    <servlet-class>edu.gatech.cs4400.FancyHotel.Controller.RemoveCardServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>removeCard</servlet-name>
+    <url-pattern>/removeCard</url-pattern>
+  </servlet-mapping>
 
   <servlet>
     <servlet-name>cancelReservation</servlet-name>
@@ -252,6 +261,14 @@
   <servlet-mapping>
     <servlet-name>viewRevenueReport</servlet-name>
     <url-pattern>/viewRevenueReport</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>StoreCard</servlet-name>
+    <servlet-class>edu.gatech.cs4400.FancyHotel.Controller.AddCardServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>StoreCard</servlet-name>
+    <url-pattern>/submitCard</url-pattern>
   </servlet-mapping>
   <mime-mapping>
     <extension>css</extension>

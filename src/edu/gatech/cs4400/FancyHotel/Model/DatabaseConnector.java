@@ -12,7 +12,6 @@ import java.sql.*;
 public class DatabaseConnector {
 	private static final String ACCOUNT = "cs4400_Group_51";
 	private static final String KEY = "gH88BNAR";
-	private static Connection con;
 	
 	
 	public static JSONArray query(String sql) {
