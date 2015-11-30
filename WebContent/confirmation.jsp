@@ -12,10 +12,8 @@
     			<p>Confirmation ID: <c:out value="${reservation.reservationID}"></c:out><p>
    				<br>
     			<p>Please save this reservation ID for all further communication.<br>
+    			<a href="<c:url value="/main"/>" role="button" class="btn btn-default pull-right">Main Page</a>
     		</div>
     	</div>
-    	<c:if test="${not empty errorMessage}">
-	    	<div class="alert alert-warning" role="alert">${errorMessage}</div>
-	    </c:if>
     </jsp:body>
 </t:template>
