@@ -81,6 +81,11 @@
 			  </form>
     		</div>
     	</div>
+    	<c:if test="${not empty errorMessage}">
+	    	<div class="alert alert-warning" role="alert">${errorMessage}</div>
+	    	<a href="<c:url value="/main"/>" class="btn btn-default pull-right">No</a>
+	    	<a href="<c:url value="/cancel"/>" class="btn btn-default pull-right">Yes</a>
+	    </c:if>
     </jsp:body>
     
 </t:template>

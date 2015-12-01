@@ -27,17 +27,24 @@ public class SelectRoomsServlet extends BaseServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String buttonType = request.getParameter("submit");
-		if(buttonType!=null){
-			//submit reservation
-			Reservation r = getReservation(request);
-			submitReservation(r);
-			request.getSession().setAttribute("reservation", r);
-			redirect(request.getContextPath()+"/confirmation",response);
-		} else{
-			//check price
-			Reservation r = getReservation(request);
-			double cost = r.getTotal_cost();
-			request.setAttribute("cost", String.valueOf(cost));
+		try{
+			if(buttonType!=null){
+				//submit reservation
+				Reservation r;
+				r = getReservation(request);
+				
+				submitReservation(r);
+				request.getSession().setAttribute("reservation", r);
+				redirect(request.getContextPath()+"/confirmation",response);
+			} else{
+				//check price
+				Reservation r = getReservation(request);
+				double cost = r.getTotal_cost();
+				request.setAttribute("cost", String.valueOf(cost));
+				forward("/chooseRooms",request,response);
+			}
+		} catch(Exception e){
+			request.setAttribute(ParameterNames.ERROR_MESSAGE, e.getMessage());
 			forward("/chooseRooms",request,response);
 		}
 	}
@@ -47,12 +54,15 @@ public class SelectRoomsServlet extends BaseServlet {
 		Reservation.storeReservation(reservation);
 	}
 	
-	protected Reservation getReservation(HttpServletRequest request){
+	protected Reservation getReservation(HttpServletRequest request) throws Exception{
 		Date startdate = (Date)request.getSession().getAttribute("startdate");
 		Date enddate = (Date)request.getSession().getAttribute("enddate");
 		String[] rooms = request.getParameterValues("selectedRooms");
 		String[] extraBeds = request.getParameterValues("selectedExtraBeds");
 		String cardNo = request.getParameter("card");
+		if(cardNo==null || cardNo.isEmpty()){
+			throw new Exception("No card selected");
+		}
 		User curUser = (User) request.getSession().getAttribute(ParameterNames.USER);
 //		curUser = User.login(curUser.getUsername(),curUser.getPassword(), false);
 //		request.getSession().setAttribute(ParameterNames.USER, curUser);
